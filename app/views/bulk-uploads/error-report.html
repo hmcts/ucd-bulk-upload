@@ -84,13 +84,14 @@ href: "javascript:window.history.back()"
 
     <p>You must fix the errors in the list and re-upload the file.</p>
 
-    <div class="govuk-button-group">
-      <button type="submit" class="govuk-button" data-module="govuk-button">
-        Upload corrected file
-      </button>
-      <a class="govuk-link" href="#">Cancel</a>
-    </div>
-
+    <form action="/bulk-uploads/corrected-list" method="post">
+      <div class="govuk-button-group">
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+          Upload corrected file
+        </button>
+        <a class="govuk-link" href="/bulk-uploads/complaints-home">Cancel</a>
+      </div>
+    </form>
   </div>
 </div>
 
