@@ -1,0 +1,72 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form class="form" action="/deduct-earnings" method="post">
+
+      <h1 class="govuk-heading-l">
+        Deductions from earnings
+      </h1>
+
+      <p>You can choose to pay a fine by having it taken from your earnings. This means the payment will come out of
+        your wages before you are paid.
+      </p>
+
+
+      <p>
+        The court will contact your employer to set up the payments.
+      </p>
+
+      <p>If you have failed to pay a fine the past, the court may order that the fine must be taken from your earnings.
+      </p>
+      <h2 class="govuk-heading-m">
+        If you are fined, would you like the court to take the payment from your earnings?
+      </h2>
+
+
+      <div class="govuk-form-group">
+
+        <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+          <div class="govuk-radios__item">
+            <input class="govuk-radios__input" id="deductEarnings" name="deductEarnings" type="radio" value="yes">
+            <label class="govuk-label govuk-radios__label" for="deductEarnings">
+              Yes
+            </label>
+          </div>
+          <div class="govuk-radios__item">
+            <input class="govuk-radios__input" id="deductEarnings-2" name="deductEarnings" type="radio" value="no">
+            <label class="govuk-label govuk-radios__label" for="deductEarnings-2">
+              No
+            </label>
+          </div>
+        </div>
+        </fieldset>
+      </div>
+
+
+
+
+      {{ govukButton({
+      text: "Continue"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

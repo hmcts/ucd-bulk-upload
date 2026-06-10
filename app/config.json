@@ -1,0 +1,8 @@
+{
+  "serviceName": "Common Platform",
+  "plugins": {
+    "govuk-frontend": {
+      "rebrand": true
+    }
+  }
+}
