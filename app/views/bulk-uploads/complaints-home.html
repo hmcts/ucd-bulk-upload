@@ -13,51 +13,57 @@ href: "javascript:window.history.back()"
 
 {% block content %}
 
-
-
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 
+    <h1 class="govuk-heading-l">Manage your complaints list</h1>
 
+    <div class="govuk-grid-row">
 
-    <h1 class="govuk-heading-l">
-      Manage your complaints list
-    </h1>
+      <!-- Upload new complaints list -->
+      <div class="govuk-grid-column-one-third">
+        <div class="govuk-summary-card">
+          <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">
+              <a class="govuk-link govuk-link--no-visited-state" href="/bulk-uploads/upload-list">Upload new complaints
+                list</a>
+            </h2>
+          </div>
+          <div class="govuk-summary-card__content">
+            <p class="govuk-body">Upload your CSV files.</p>
+          </div>
+        </div>
+      </div>
 
-    <div class="govuk-width-container">
-      <ul class="govuk-grid-row card-group">
-        <li class="govuk-grid-column-one-third card-group__item">
-          <div class="card card--clickable" data-test="global-search">
-            <h2 class="govuk-heading-m card__heading">
-              <a class="govuk-link card__link govuk-link--no-visited-state" href="/bulk-uploads/upload-list"
-                onclick="showAlert()">Upload new
-                complaints list</a>
+      <!-- View your complaints list -->
+      <div class="govuk-grid-column-one-third">
+        <div class="govuk-summary-card">
+          <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">
+              <a class="govuk-link govuk-link--no-visited-state" href="/bulk-uploads/view-list">View your complaints
+                list</a>
             </h2>
-            <p class="govuk-body card__description">Upload your CSV files.
-            </p>
           </div>
-        </li>
-        <li class="govuk-grid-column-one-third card-group__item">
-          <div class="card card--clickable" data-test="manage-prisoner-whereabouts">
-            <h2 class="govuk-heading-m card__heading">
-              <a class="govuk-link card__link govuk-link--no-visited-state" href="/bulk-uploads/view-list"
-                onclick="showAlert()">View your
-                complaints list</a>
+          <div class="govuk-summary-card__content">
+            <p class="govuk-body">View and manage files already uploaded.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Download CSV template -->
+      <div class="govuk-grid-column-one-third">
+        <div class="govuk-summary-card">
+          <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">
+              <a class="govuk-link govuk-link--no-visited-state" href="#">Download CSV template</a>
             </h2>
-            <p class="govuk-body card__description">View and manage files already uploaded.</p>
           </div>
-        </li>
-        <li class="govuk-grid-column-one-third card-group__item">
-          <div class="card card--clickable" data-test="use-of-force">
-            <h2 class="govuk-heading-m card__heading">
-              <a class="govuk-link card__link govuk-link--no-visited-state" href="#" onclick="showAlert()">Download CSV
-                template</a>
-            </h2>
-            <p class="govuk-body card__description">Download the template you need to convert your files into CSV ready
-              for uploading.</p>
+          <div class="govuk-summary-card__content">
+            <p class="govuk-body">Download the template you need to convert your files into CSV ready for uploading.</p>
           </div>
-        </li>
-      </ul>
+        </div>
+      </div>
+
     </div>
 
   </div>

@@ -16,31 +16,6 @@ href: "javascript:window.history.back()"
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 
-    <div role="region"
-      style="background-color: #ca3535; display: flex; align-items: center; padding: 15px 20px; gap: 15px;"
-      aria-label="Important: An important message for users.">
-      <div style="flex-shrink: 0;">
-        <span aria-hidden="true" style="
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background-color: #ffffff;
-      color: #ca3535;
-      font-family: GDS Transport, arial, sans-serif;
-      font-weight: 700;
-      font-size: 20px;
-      line-height: 1;
-    ">!</span>
-      </div>
-      <strong class="govuk-heading-s" style="color: #ffffff; margin-bottom: 0;">
-        <span class="govuk-visually-hidden">Important: </span>
-        1 file failed to upload.
-      </strong>
-    </div>
-    <hr class="govuk-section-break govuk-section-break--l govuk-section-break">
 
     <h1 class="govuk-heading-xl">
       View your complaints files
@@ -197,8 +172,8 @@ href: "javascript:window.history.back()"
     {
     ref: "KUJ5953G",
     date: "16 June 2026",
-    status: "Upload failed",
-    action: "View error report",
+    status: "Processing",
+    action: "",
     actionLink: "/bulk-uploads/error-report",
     file: "complaints-list-KM",
     user: "Sarah Hall"
@@ -242,8 +217,8 @@ href: "javascript:window.history.back()"
     {
     ref: "PQU3184T",
     date: "5 June 2026",
-    status: "Awaiting court decision",
-    action: "Add supporting documents",
+    status: "Documents added",
+    action: "",
     actionLink: "/bulk-uploads/supporting-doc",
     file: "complaints-list-HJ",
     user: "Donald Glover"
@@ -276,7 +251,6 @@ href: "javascript:window.history.back()"
           <th scope="col" class="govuk-table__header">Reference</th>
           <th scope="col" class="govuk-table__header">Date uploaded</th>
           <th scope="col" class="govuk-table__header">Status</th>
-          <th scope="col" class="govuk-table__header">Action</th>
           <th scope="col" class="govuk-table__header">File name</th>
           <th scope="col" class="govuk-table__header">Uploaded by</th>
         </tr>
@@ -314,20 +288,6 @@ href: "javascript:window.history.back()"
 
           </td>
 
-          <td class="govuk-table__cell">
-
-            {% if complaint.action %}
-
-            <a href="{{ complaint.actionLink }}">
-              {{ complaint.action }}
-              <span class="govuk-visually-hidden">
-                for {{ complaint.ref }}
-              </span>
-            </a>
-
-            {% endif %}
-
-          </td>
 
           <td class="govuk-table__cell">
             {{ complaint.file }}

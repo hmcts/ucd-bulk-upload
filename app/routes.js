@@ -198,9 +198,17 @@ router.post('/afford/deduct-earnings', function (request, response) {
 
 })
 
+// ====================== BULK UPLOADS SEARCH ======================
 
+router.get('/bulk-uploads/view-list', function (req, res) {
 
+  const search = req.query.search || ''
 
+  res.render('/bulk-uploads/view-list', {
+    search
+  })
+
+})
 
 
 // ====================== EXPORT ======================

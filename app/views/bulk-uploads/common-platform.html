@@ -1,0 +1,133 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+Content page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+
+
+    <div style="background-color: #1d70b8; padding: 20px 30px; margin-bottom: 30px;">
+      <h1 class="govuk-heading-xl" style="color: #ffffff; margin-bottom: 0;">Home</h1>
+    </div>
+
+    <div class="govuk-grid-row">
+
+      <!-- Exception lists -->
+      <div class="govuk-grid-column-one-third">
+        <div class="govuk-summary-card">
+          <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">Exception lists</h2>
+          </div>
+          <div class="govuk-summary-card__content">
+            <ul class="govuk-list">
+              <li><a class="govuk-link" href="#">Reporting Dashboard</a></li>
+              <li><a class="govuk-link" href="#">Fix case interface errors</a></li>
+              <li><a class="govuk-link" href="#">Review new documents</a></li>
+              <li><a class="govuk-link" href="#">Match defendants</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Performance Dashboards -->
+      <div class="govuk-grid-column-one-third">
+        <div class="govuk-summary-card">
+          <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">Performance Dashboards</h2>
+          </div>
+          <div class="govuk-summary-card__content">
+            <ul class="govuk-list">
+              <li><a class="govuk-link" href="#">View Outstanding cases</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Court proceedings -->
+      <div class="govuk-grid-column-one-third">
+        <div class="govuk-summary-card">
+          <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">Court proceedings</h2>
+          </div>
+          <div class="govuk-summary-card__content">
+            <ul class="govuk-list">
+              <li><a class="govuk-link" href="#">Search for driver record</a></li>
+              <li><a class="govuk-link" href="#">Record court room use</a></li>
+              <li><a class="govuk-link" href="#">View list and manage hearings</a></li>
+              <li><a class="govuk-link" href="#">Allocated hearings</a></li>
+              <li><a class="govuk-link" href="#">Unallocated hearings</a></li>
+              <li><a class="govuk-link" href="#">Publish and download hearing lists</a></li>
+              <li><a class="govuk-link" href="/bulk-uploads/complaints-home">Manage your complaint files</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="govuk-grid-row">
+
+      <!-- Platform Administration -->
+      <div class="govuk-grid-column-one-third">
+        <div class="govuk-summary-card">
+          <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">Platform Administration</h2>
+          </div>
+          <div class="govuk-summary-card__content">
+            <ul class="govuk-list">
+              <li><a class="govuk-link" href="#">Manage Roles</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Court Scheduler -->
+      <div class="govuk-grid-column-one-third">
+        <div class="govuk-summary-card">
+          <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">Court Scheduler</h2>
+          </div>
+          <div class="govuk-summary-card__content">
+            <ul class="govuk-list">
+              <li><a class="govuk-link" href="#">View or edit court sessions</a></li>
+              <li><a class="govuk-link" href="#">Manage Judicial Itinerary</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Manage your work -->
+      <div class="govuk-grid-column-one-third">
+        <div class="govuk-summary-card">
+          <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">Manage your work</h2>
+          </div>
+          <div class="govuk-summary-card__content">
+            <ul class="govuk-list">
+              <li><a class="govuk-link" href="#">Case activities</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    {% endblock %}
+
+
+  </div>
+</div>
