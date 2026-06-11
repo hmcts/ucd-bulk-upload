@@ -211,5 +211,13 @@ router.get('/bulk-uploads/view-list', function (req, res) {
 })
 
 
+router.get('/bulk-uploads/clear-filters', (req, res) => {
+  // Remove only the filter-related session data
+  delete req.session.data['search']
+  delete req.session.data['status']
+
+  res.redirect('/bulk-uploads/view-list')
+})
+
 // ====================== EXPORT ======================
 module.exports = router;

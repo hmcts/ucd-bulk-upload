@@ -92,15 +92,23 @@ href: "javascript:window.history.back()"
 
                   <div class="govuk-checkboxes__item">
                     <input class="govuk-checkboxes__input" id="pending" name="status" type="checkbox"
-                      value="Awaiting court decision">
+                      value="Awaiting court decision" {{ checked("status", "Awaiting court decision" ) }}>
                     <label class="govuk-label govuk-checkboxes__label" for="pending">
                       Awaiting court decision
                     </label>
                   </div>
 
                   <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="processing" name="status" type="checkbox"
+                      value="Processing" {{ checked("status", "Processing" ) }}>
+                    <label class="govuk-label govuk-checkboxes__label" for="processing">
+                      Processing
+                    </label>
+                  </div>
+
+                  <div class="govuk-checkboxes__item">
                     <input class="govuk-checkboxes__input" id="failed" name="status" type="checkbox"
-                      value="Upload failed">
+                      value="Upload failed" {{ checked("status", "Upload failed" ) }}>
                     <label class="govuk-label govuk-checkboxes__label" for="failed">
                       Upload failed
                     </label>
@@ -108,7 +116,7 @@ href: "javascript:window.history.back()"
 
                   <div class="govuk-checkboxes__item">
                     <input class="govuk-checkboxes__input" id="accepted" name="status" type="checkbox"
-                      value="Accepted by court">
+                      value="Accepted by court" {{ checked("status", "Accepted by court" ) }}>
                     <label class="govuk-label govuk-checkboxes__label" for="accepted">
                       Accepted by court
                     </label>
@@ -116,7 +124,7 @@ href: "javascript:window.history.back()"
 
                   <div class="govuk-checkboxes__item">
                     <input class="govuk-checkboxes__input" id="rejected" name="status" type="checkbox"
-                      value="Rejected by court">
+                      value="Rejected by court" {{ checked("status", "Rejected by court" ) }}>
                     <label class="govuk-label govuk-checkboxes__label" for="rejected">
                       Rejected by court
                     </label>
@@ -182,12 +190,45 @@ href: "javascript:window.history.back()"
             </div>
 
             <!-- SUBMIT -->
-            <button class="govuk-button govuk-!-margin-bottom-0" data-module="govuk-button">
-              Apply filters
-            </button>
+            <div style="display:flex; align-items:center; gap:15px;">
+
+              <button class="govuk-button govuk-!-margin-bottom-0" data-module="govuk-button">
+                Apply filters
+              </button>
+
+            </div>
 
           </div>
         </details>
+
+        {% if data['status'] or data['search'] %}
+
+        <div class="govuk-inset-text govuk-!-margin-top-4">
+
+          <p class="govuk-body govuk-!-margin-bottom-1">
+            <strong>Filters applied</strong>
+          </p>
+
+          {% if data['search'] %}
+          <p class="govuk-body govuk-!-margin-bottom-1">
+            Reference: {{ data['search'] }}
+          </p>
+          {% endif %}
+
+          {% if data['status'] %}
+          <p class="govuk-body govuk-!-margin-bottom-1">
+            Status:
+            {{ data['status'] | join(', ') if data['status'].constructor == Array else data['status'] }}
+          </p>
+          {% endif %}
+
+          <a class="govuk-link" href="/bulk-uploads/clear-filters">
+            Clear filters
+          </a>
+
+        </div>
+
+        {% endif %}
 
       </form>
 
@@ -253,7 +294,7 @@ href: "javascript:window.history.back()"
     date: "4 June 2026",
     status: "Accepted by court",
     action: "",
-    actionLink: "/bulk-uploads/error-report",
+    actionLink: "",
     file: "complaints-list-LN",
     user: "Sarah Hall"
     },
@@ -268,9 +309,15 @@ href: "javascript:window.history.back()"
     }
     ] %}
 
-    {% set searchTerm = search | upper %}
+    {% set searchTerm = (data['search'] or '') | upper %}
+    {% set selectedStatuses = data['status'] %}
+
+    {% if selectedStatuses and selectedStatuses.constructor != Array %}
+    {% set selectedStatuses = [selectedStatuses] %}
+    {% endif %}
 
     <table class="govuk-table">
+
       <thead class="govuk-table__head">
         <tr class="govuk-table__row">
           <th scope="col" class="govuk-table__header">Reference</th>
@@ -286,7 +333,29 @@ href: "javascript:window.history.back()"
 
         {% for complaint in complaints %}
 
-        {% if searchTerm == "" or complaint.ref == searchTerm %}
+        {% set matchesSearch =
+        searchTerm == "" or complaint.ref == searchTerm
+        %}
+
+        {% set matchesStatus =
+        not data['status']
+        or (
+        complaint.status == "Awaiting court decision" and checked("status", "Awaiting court decision")
+        )
+        or (
+        complaint.status == "Processing" and checked("status", "Processing")
+        )
+        or (
+        complaint.status == "Upload failed" and checked("status", "Upload failed")
+        )
+        or (
+        complaint.status == "Accepted by court" and checked("status", "Accepted by court")
+        )
+        or (
+        complaint.status == "Rejected by court" and checked("status", "Rejected by court")
+        )
+        %}
+        {% if matchesSearch and matchesStatus %}
 
         <tr class="govuk-table__row">
 
@@ -344,6 +413,7 @@ href: "javascript:window.history.back()"
         {% endfor %}
 
       </tbody>
+
     </table>
     <nav class="govuk-pagination" aria-label="Pagination">
 
