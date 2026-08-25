@@ -1,0 +1,156 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+{{ serviceName }}
+{% endblock %}
+
+{% block beforeContent %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full" style="margin-top: -10px; margin-bottom: 20px;">
+        <div class="govuk-phase-banner">
+            <p class="govuk-phase-banner__content">
+                <strong class="govuk-tag govuk-phase-banner__content__tag">
+                    Prototype
+                </strong>
+                <span class="govuk-phase-banner__text">
+                    This is a prototype for user research - it is not accessible and may not be accurate to final
+                    designs.
+                </span>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full" style="margin-top: -50px; margin-bottom: 10px;">
+            <div>
+                <a class="govuk-heading govuk-link--no-visited-state listing-navigation-selected"
+                    href="unallocated.html">Detailed Search</a>
+                <a class="govuk-heading govuk-link--no-visited-state listing-navigation" style="margin-left: 20px;"
+                    href="allocated.html">Home</a>
+                <a class="govuk-heading govuk-link--no-visited-state listing-navigation" style="margin-left: 20px;"
+                    href="allocated.html">Your Services</a>
+                <a class="govuk-heading govuk-link--no-visited-state listing-navigation" style="margin-left: 20px;"
+                    href="allocated.html">Your Account</a>
+                <a class="govuk-heading govuk-link--no-visited-state listing-navigation" style="margin-left: 20px;"
+                    href="allocated.html">Sign out</a>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="filters" style="display: inline-block;">
+        <h1 class="govuk-heading-l">Confirm the cases to extract</h1>
+        <div class="grid-container-unallocated">
+
+            <p>You are extracting the following <strong>10</strong> cases from this bulk list. Check this is correct
+                before confirming.
+            </p>
+
+            <p>This action cannot be undone. </p>
+
+
+            <table class="govuk-table">
+                <caption class="govuk-table__caption govuk-visually-hidden">
+                    Selected cases
+                </caption>
+
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header">Full name</th>
+                        <th scope="col" class="govuk-table__header">Address</th>
+                        <th scope="col" class="govuk-table__header">Date of birth</th>
+                        <th scope="col" class="govuk-table__header">URN</th>
+                    </tr>
+                </thead>
+
+                <tbody class="govuk-table__body">
+
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">Abigail Morgan</td>
+                        <td class="govuk-table__cell">45 High Street, Winchester, SO23 9BL</td>
+                        <td class="govuk-table__cell">02/09/1987</td>
+                        <td class="govuk-table__cell">KDIF774109</td>
+                    </tr>
+
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">Aria Perry</td>
+                        <td class="govuk-table__cell">15 London Road, Ipswich, IP1 2HE</td>
+                        <td class="govuk-table__cell">20/09/1994</td>
+                        <td class="govuk-table__cell">KDIF330418</td>
+                    </tr>
+
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">Charlotte Davies</td>
+                        <td class="govuk-table__cell">104 Oxford Road, Manchester, M1 5WH</td>
+                        <td class="govuk-table__cell">12/03/1988</td>
+                        <td class="govuk-table__cell">KDIF334192</td>
+                    </tr>
+
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">Chloe Richardson</td>
+                        <td class="govuk-table__cell">68 Broad Street, Worcester, WR1 3NH</td>
+                        <td class="govuk-table__cell">06/05/1978</td>
+                        <td class="govuk-table__cell">KDIF558231</td>
+                    </tr>
+
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">Daniel Murphy</td>
+                        <td class="govuk-table__cell">25 High Street, York, YO1 7JB</td>
+                        <td class="govuk-table__cell">28/01/2002</td>
+                        <td class="govuk-table__cell">KDIF770148</td>
+                    </tr>
+
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">Ethan Cooper</td>
+                        <td class="govuk-table__cell">27 New Road, Peterborough, PE1 1FJ</td>
+                        <td class="govuk-table__cell">11/05/1993</td>
+                        <td class="govuk-table__cell">KDIF552903</td>
+                    </tr>
+
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">Harper Evans</td>
+                        <td class="govuk-table__cell">67 Victoria Street, Nottingham, NG1 6LE</td>
+                        <td class="govuk-table__cell">30/11/1996</td>
+                        <td class="govuk-table__cell">KDIF663528</td>
+                    </tr>
+
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">Harrison Cole</td>
+                        <td class="govuk-table__cell">56 London Road, Brighton, BN1 4JA</td>
+                        <td class="govuk-table__cell">25/12/1982</td>
+                        <td class="govuk-table__cell">KDIF229841</td>
+                    </tr>
+
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">Logan Lewis</td>
+                        <td class="govuk-table__cell">19 George Street, Bath, BA1 2HE</td>
+                        <td class="govuk-table__cell">17/01/2000</td>
+                        <td class="govuk-table__cell">KDIF338572</td>
+                    </tr>
+
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">Mason Thomas</td>
+                        <td class="govuk-table__cell">3 Park Road, Newcastle upon Tyne, NE1 8SF</td>
+                        <td class="govuk-table__cell">21/04/1991</td>
+                        <td class="govuk-table__cell">KDIF119044</td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+            <div class="govuk-button-group">
+                <a href="/bulk-result/new-bulk" role="button" draggable="false"
+                    class="govuk-button govuk-button--primary" data-module="govuk-button">
+                    Confirm
+                </a>
+
+                <a href="/bulk-result" class="govuk-link">
+                    Cancel
+                </a>
+            </div>
+
+            {% endblock %}

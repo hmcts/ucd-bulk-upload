@@ -1,0 +1,346 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+{{ serviceName }}
+{% endblock %}
+
+{% block beforeContent %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full" style="margin-top: -10px; margin-bottom: 20px;">
+        <div class="govuk-phase-banner">
+            <p class="govuk-phase-banner__content">
+                <strong class="govuk-tag govuk-phase-banner__content__tag">
+                    Prototype
+                </strong>
+                <span class="govuk-phase-banner__text">
+                    This is a prototype for user research - it is not accessible and may not be accurate to final
+                    designs.
+                </span>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full" style="margin-top: -50px; margin-bottom: 10px;">
+            <div>
+                <a class="govuk-heading govuk-link--no-visited-state listing-navigation-selected"
+                    href="unallocated.html">Detailed Search</a>
+                <a class="govuk-heading govuk-link--no-visited-state listing-navigation" style="margin-left: 20px;"
+                    href="allocated.html">Home</a>
+                <a class="govuk-heading govuk-link--no-visited-state listing-navigation" style="margin-left: 20px;"
+                    href="allocated.html">Your Services</a>
+                <a class="govuk-heading govuk-link--no-visited-state listing-navigation" style="margin-left: 20px;"
+                    href="allocated.html">Your Account</a>
+                <a class="govuk-heading govuk-link--no-visited-state listing-navigation" style="margin-left: 20px;"
+                    href="allocated.html">Sign out</a>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="filters" style="display: inline-block;">
+        <h1 class="govuk-heading-l">Council tax lists</h1>
+        <div class="grid-container-unallocated">
+
+
+            <h2 class="govuk-heading-m">Filter hearings</h2>
+
+            <div class="govuk-form-group">
+                <div style="display: flex; gap: 40px; align-items: flex-start;">
+
+                    <!-- Court -->
+                    <div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label" for="court">
+                                Court
+                            </label>
+                            <input class="govuk-input" id="court" name="court" type="text">
+                        </div>
+                    </div>
+
+                    <!-- Courtroom -->
+                    <div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label" for="courtroom">
+                                Courtroom <span class="govuk-hint" style="display: inline;">(optional)</span>
+                            </label>
+                            <input class="govuk-input" id="courtroom" name="courtroom" type="text">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+            <!-- 2nd column -->
+            <!-- <div class="grid-item">
+        <div class="govuk-form-group">
+          <h3 class="govuk-label-wrapper">
+            <label class="govuk-label listing-label" for="court">
+              <b>Courtroom (optional)</b>
+            </label>
+          </h3>
+          <select class="govuk-select" id="court" name="court" data-module="autocomplete" data-autoselect=""
+            data-display-menu="" data-min-length="" data-show-all-values="" data-show-no-options-found="">
+            <option value="" selected disabled>Select an option</option>
+            <option value="Courtroom-1">Courtroom 1</option>
+            <option value="Courtroom-2">Courtroom 2</option>
+            <option value="Courtroom-3">Courtroom 3</option>
+            <option value="Courtroom-4">Courtroom 4</option>
+            <option value="Courtroom-5">Courtroom 5</option>
+            <option value="Courtroom-6">Courtroom 6</option>
+          </select>
+        </div>
+      </div> -->
+
+            <div class="govuk-form-group">
+                <div style="display: flex; gap: 40px; align-items: flex-start;">
+
+                    <!-- Start date -->
+                    <div>
+                        <h2 class="govuk-heading-s">Start date</h2>
+
+                        <div class="govuk-date-input" id="start-date">
+
+                            <div class="govuk-date-input__item">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-date-input__label" for="start-date-day">
+                                        Day
+                                    </label>
+                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                                        id="start-date-day" name="start-date-day" type="text" inputmode="numeric">
+                                </div>
+                            </div>
+
+                            <div class="govuk-date-input__item">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-date-input__label" for="start-date-month">
+                                        Month
+                                    </label>
+                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                                        id="start-date-month" name="start-date-month" type="text" inputmode="numeric">
+                                </div>
+                            </div>
+
+                            <div class="govuk-date-input__item">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-date-input__label" for="start-date-year">
+                                        Year
+                                    </label>
+
+                                    <div style="display: flex; align-items: center; gap: 6px;">
+                                        <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                                            id="start-date-year" name="start-date-year" type="text" inputmode="numeric">
+
+                                        <!-- Pixel calendar icon -->
+                                        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"
+                                            focusable="false" style="display: block; image-rendering: pixelated;">
+                                            <rect x="3" y="4" width="14" height="13" fill="none" stroke="#0b0c0c"
+                                                stroke-width="2" />
+                                            <rect x="3" y="4" width="14" height="4" fill="#0b0c0c" />
+                                            <rect x="6" y="2" width="2" height="4" fill="#0b0c0c" />
+                                            <rect x="12" y="2" width="2" height="4" fill="#0b0c0c" />
+                                            <rect x="6" y="10" width="2" height="2" fill="#0b0c0c" />
+                                            <rect x="9" y="10" width="2" height="2" fill="#0b0c0c" />
+                                            <rect x="12" y="10" width="2" height="2" fill="#0b0c0c" />
+                                            <rect x="6" y="13" width="2" height="2" fill="#0b0c0c" />
+                                            <rect x="9" y="13" width="2" height="2" fill="#0b0c0c" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- End date -->
+                    <div>
+                        <h2 class="govuk-heading-s">
+                            End date <span class="govuk-hint" style="display: inline;">(optional)</span>
+                        </h2>
+
+                        <div class="govuk-date-input" id="end-date">
+
+                            <div class="govuk-date-input__item">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-date-input__label" for="end-date-day">
+                                        Day
+                                    </label>
+                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                                        id="end-date-day" name="end-date-day" type="text" inputmode="numeric">
+                                </div>
+                            </div>
+
+                            <div class="govuk-date-input__item">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-date-input__label" for="end-date-month">
+                                        Month
+                                    </label>
+                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                                        id="end-date-month" name="end-date-month" type="text" inputmode="numeric">
+                                </div>
+                            </div>
+
+                            <div class="govuk-date-input__item">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-date-input__label" for="end-date-year">
+                                        Year
+                                    </label>
+
+                                    <div style="display: flex; align-items: center; gap: 6px;">
+                                        <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                                            id="end-date-year" name="end-date-year" type="text" inputmode="numeric">
+
+                                        <!-- Pixel calendar icon -->
+                                        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"
+                                            focusable="false" style="display: block; image-rendering: pixelated;">
+                                            <rect x="3" y="4" width="14" height="13" fill="none" stroke="#0b0c0c"
+                                                stroke-width="2" />
+                                            <rect x="3" y="4" width="14" height="4" fill="#0b0c0c" />
+                                            <rect x="6" y="2" width="2" height="4" fill="#0b0c0c" />
+                                            <rect x="12" y="2" width="2" height="4" fill="#0b0c0c" />
+                                            <rect x="6" y="10" width="2" height="2" fill="#0b0c0c" />
+                                            <rect x="9" y="10" width="2" height="2" fill="#0b0c0c" />
+                                            <rect x="12" y="10" width="2" height="2" fill="#0b0c0c" />
+                                            <rect x="6" y="13" width="2" height="2" fill="#0b0c0c" />
+                                            <rect x="9" y="13" width="2" height="2" fill="#0b0c0c" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 5th column -->
+            <!-- <div class="grid-item"> -->
+            <!-- <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+            <legend class="listing-label govuk-fieldset__legend--s">
+              <h3 class="govuk-fieldset__heading">
+                Session
+              </h3>
+            </legend>
+            <div class="govuk-radios govuk-radios--small" data-module="govuk-radios">
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="session" name="session" type="radio" value="AM">
+                <label class="govuk-label govuk-radios__label" for="AM">
+                  AM
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="session" name="session" type="radio" value="PM">
+                <label class="govuk-label govuk-radios__label" for="PM">
+                  PM
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="session" name="session" type="radio" value="Both">
+                <label class="govuk-label govuk-radios__label" for="Both">
+                  Both
+                </label>
+              </div>
+
+            </div>
+          </fieldset>
+        </div> -->
+            <!-- </div> -->
+
+
+            <div>
+                <button class="govuk-button" data-module="govuk-button" onclick="myFunction()">
+                    Apply filters
+                </button>
+                <button type="reset" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+                    Reset filters
+                </button>
+            </div>
+        </div>
+
+        <div id="results" style="display: none;">
+
+            <p class="govuk-body">
+                Showing 3 bulk case results between 13/08/24 and 14/08/24 at Liverpool Crown Court
+            </p>
+
+            <table class="govuk-table">
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header">
+                            Lead defendant
+                        </th>
+                        <th scope="col" class="govuk-table__header">
+                            URN
+                        </th>
+                        <th scope="col" class="govuk-table__header">
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody class="govuk-table__body">
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">
+                            Arthur Pendelton
+                        </td>
+                        <td class="govuk-table__cell">
+                            4390540592
+                        </td>
+                        <td class="govuk-table__cell">
+                            <a href="/bulk-result/case-details" class="govuk-link govuk-link">Manage hearing</a>
+                        </td>
+                    </tr>
+                </tbody>
+
+                <tbody class="govuk-table__body">
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">
+                            Stevie Nicks
+                        </td>
+                        <td class="govuk-table__cell">
+                            4390540521
+                        </td>
+                        <td class="govuk-table__cell">
+                            <p class="govuk-body">
+                                <a href="#" class="govuk-link govuk-link">Manage hearing</a>
+                            </p>
+                        </td>
+                    </tr>
+                </tbody>
+
+                <tbody class="govuk-table__body">
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">
+                            Mike Campbell
+                        </td>
+                        <td class="govuk-table__cell">
+                            4390540533
+                        </td>
+                        <td class="govuk-table__cell">
+                            <a href="#" class="govuk-link govuk-link">Manage hearing</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <script>
+            function myFunction() {
+                var x = document.getElementById("results");
+
+                x.style.display = "block";
+            }
+        </script>
+
+
+
+        {% endblock %}

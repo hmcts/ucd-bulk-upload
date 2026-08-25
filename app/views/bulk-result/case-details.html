@@ -1,0 +1,842 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+{{ serviceName }}
+{% endblock %}
+
+{% block beforeContent %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full" style="margin-top: -10px; margin-bottom: 20px;">
+        <div class="govuk-phase-banner">
+            <p class="govuk-phase-banner__content">
+                <strong class="govuk-tag govuk-phase-banner__content__tag">
+                    Prototype
+                </strong>
+                <span class="govuk-phase-banner__text">
+                    This is a prototype for user research - it is not accessible and may not be accurate to final
+                    designs.
+                </span>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full" style="margin-top: -50px; margin-bottom: 10px;">
+            <div>
+                <a class="govuk-heading govuk-link--no-visited-state listing-navigation-selected"
+                    href="unallocated.html">Detailed Search</a>
+                <a class="govuk-heading govuk-link--no-visited-state listing-navigation" style="margin-left: 20px;"
+                    href="allocated.html">Home</a>
+                <a class="govuk-heading govuk-link--no-visited-state listing-navigation" style="margin-left: 20px;"
+                    href="allocated.html">Your Services</a>
+                <a class="govuk-heading govuk-link--no-visited-state listing-navigation" style="margin-left: 20px;"
+                    href="allocated.html">Your Account</a>
+                <a class="govuk-heading govuk-link--no-visited-state listing-navigation" style="margin-left: 20px;"
+                    href="allocated.html">Sign out</a>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="filters" style="display: inline-block;">
+        <h1 class="govuk-heading-l">Bulk case details</h1>
+        <div class="grid-container-unallocated">
+
+
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Prosecutor
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        Liverpool City Council
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        URN
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        4390540592
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Offence
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        Complaints for council tax liability order (multiple cases)
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Lead defendant
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        <p class="govuk-body">Arthur Pendelton</p>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Linked defendant
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        <p class="govuk-body">50</p>
+                    </dd>
+                </div>
+            </dl>
+
+            <h2 class="govuk-heading-m">Defendants linked to this case (50)</h2>
+
+            <a href="/bulk-result/extract-cases" role="button" draggable="false"
+                class="govuk-button govuk-button--secondary" data-module="govuk-button">
+                Extract linked cases
+            </a>
+
+            <!-- ============================================================
+     RESULTS
+     ============================================================ -->
+
+            <div id="results">
+
+                <p class="govuk-body" id="results-count">
+                    Showing <strong>1–17</strong> of <strong>50</strong> results
+                </p>
+
+                <div style="overflow-x: auto;">
+
+                    <table class="govuk-table">
+
+                        <caption class="govuk-table__caption govuk-visually-hidden">
+                            Search results
+                        </caption>
+
+                        <thead class="govuk-table__head">
+                            <tr class="govuk-table__row">
+
+                                <th scope="col" class="govuk-table__header">
+                                    Full name
+                                </th>
+
+                                <th scope="col" class="govuk-table__header">
+                                    Address
+                                </th>
+
+                                <th scope="col" class="govuk-table__header">
+                                    Date of birth
+                                </th>
+
+                                <th scope="col" class="govuk-table__header">
+                                    URN
+                                </th>
+
+                            </tr>
+                        </thead>
+
+                        <tbody class="govuk-table__body" id="results-table-body">
+
+                            <!-- 1 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Arthur Pendelton</td>
+                                <td class="govuk-table__cell">42 Victoria Road, Guildford, Surrey, GU1 4DS</td>
+                                <td class="govuk-table__cell">14/05/1992</td>
+                                <td class="govuk-table__cell">KDIF833399</td>
+                            </tr>
+
+                            <!-- 2 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Abigail Morgan</td>
+                                <td class="govuk-table__cell">45 High Street, Winchester, SO23 9BL</td>
+                                <td class="govuk-table__cell">02/09/1987</td>
+                                <td class="govuk-table__cell">KDIF774109</td>
+                            </tr>
+
+                            <!-- 3 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Alexander Reed</td>
+                                <td class="govuk-table__cell">91 West Street, Sheffield, S1 4EQ</td>
+                                <td class="govuk-table__cell">04/10/1997</td>
+                                <td class="govuk-table__cell">KDIF994821</td>
+                            </tr>
+
+                            <!-- 4 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Aria Perry</td>
+                                <td class="govuk-table__cell">15 London Road, Ipswich, IP1 2HE</td>
+                                <td class="govuk-table__cell">20/09/1994</td>
+                                <td class="govuk-table__cell">KDIF330418</td>
+                            </tr>
+
+                            <!-- 5 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Beatrice Thorne</td>
+                                <td class="govuk-table__cell">15 Church Lane, Shrewsbury, SY1 1US</td>
+                                <td class="govuk-table__cell">30/01/1974</td>
+                                <td class="govuk-table__cell">KDIF655321</td>
+                            </tr>
+
+                            <!-- 6 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Benjamin Ward</td>
+                                <td class="govuk-table__cell">82 Bridge Street, Northampton, NN1 1PD</td>
+                                <td class="govuk-table__cell">13/03/1999</td>
+                                <td class="govuk-table__cell">KDIF889124</td>
+                            </tr>
+
+                            <!-- 7 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Caleb Jenkins</td>
+                                <td class="govuk-table__cell">79 Station Road, Taunton, TA1 1AB</td>
+                                <td class="govuk-table__cell">07/04/1982</td>
+                                <td class="govuk-table__cell">KDIF997562</td>
+                            </tr>
+
+                            <!-- 8 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Charlotte Davies</td>
+                                <td class="govuk-table__cell">104 Oxford Road, Manchester, M1 5WH</td>
+                                <td class="govuk-table__cell">12/03/1988</td>
+                                <td class="govuk-table__cell">KDIF334192</td>
+                            </tr>
+
+                            <!-- 9 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Chloe Richardson</td>
+                                <td class="govuk-table__cell">68 Broad Street, Worcester, WR1 3NH</td>
+                                <td class="govuk-table__cell">06/05/1978</td>
+                                <td class="govuk-table__cell">KDIF558231</td>
+                            </tr>
+
+                            <!-- 10 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Daniel Murphy</td>
+                                <td class="govuk-table__cell">25 High Street, York, YO1 7JB</td>
+                                <td class="govuk-table__cell">28/01/2002</td>
+                                <td class="govuk-table__cell">KDIF770148</td>
+                            </tr>
+
+                            <!-- 11 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">David Sanders</td>
+                                <td class="govuk-table__cell">20 High Street, Colchester, CO1 1DH</td>
+                                <td class="govuk-table__cell">19/06/1993</td>
+                                <td class="govuk-table__cell">KDIF332410</td>
+                            </tr>
+
+                            <!-- 12 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Eleanor Vance</td>
+                                <td class="govuk-table__cell">12 Mill Lane, Cardiff, CF10 1EP</td>
+                                <td class="govuk-table__cell">22/11/1985</td>
+                                <td class="govuk-table__cell">KDIF472910</td>
+                            </tr>
+
+                            <!-- 13 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Ella Ross</td>
+                                <td class="govuk-table__cell">18 Church Lane, Chelmsford, CM1 1NF</td>
+                                <td class="govuk-table__cell">03/07/1999</td>
+                                <td class="govuk-table__cell">KDIF440193</td>
+                            </tr>
+
+                            <!-- 14 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Ellie Simmons</td>
+                                <td class="govuk-table__cell">11 High Street, Bangor, LL57 1NS</td>
+                                <td class="govuk-table__cell">14/10/2000</td>
+                                <td class="govuk-table__cell">KDIF667149</td>
+                            </tr>
+
+                            <!-- 15 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Ethan Cooper</td>
+                                <td class="govuk-table__cell">27 New Road, Peterborough, PE1 1FJ</td>
+                                <td class="govuk-table__cell">11/05/1993</td>
+                                <td class="govuk-table__cell">KDIF552903</td>
+                            </tr>
+
+                            <!-- 16 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Evelyn Roberts</td>
+                                <td class="govuk-table__cell">88 Albert Road, Middlesbrough, TS1 1PE</td>
+                                <td class="govuk-table__cell">08/08/1984</td>
+                                <td class="govuk-table__cell">KDIF992381</td>
+                            </tr>
+
+                            <!-- 17 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Freya Jenkins</td>
+                                <td class="govuk-table__cell">9 Park Avenue, Swansea, SA1 4NB</td>
+                                <td class="govuk-table__cell">18/10/1990</td>
+                                <td class="govuk-table__cell">KDIF556420</td>
+                            </tr>
+
+                            <!-- 18 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Grace Richardson</td>
+                                <td class="govuk-table__cell">54 High Street, Lincoln, LN1 1QR</td>
+                                <td class="govuk-table__cell">27/07/1980</td>
+                                <td class="govuk-table__cell">KDIF662057</td>
+                            </tr>
+
+                            <!-- 19 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Hannah Kelly</td>
+                                <td class="govuk-table__cell">10 Castle Street, Chester, CH1 2DS</td>
+                                <td class="govuk-table__cell">09/10/1985</td>
+                                <td class="govuk-table__cell">KDIF778921</td>
+                            </tr>
+
+                            <!-- 20 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Harper Evans</td>
+                                <td class="govuk-table__cell">67 Victoria Street, Nottingham, NG1 6LE</td>
+                                <td class="govuk-table__cell">30/11/1996</td>
+                                <td class="govuk-table__cell">KDIF663528</td>
+                            </tr>
+
+                            <!-- 21 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Harper-Rose Cook</td>
+                                <td class="govuk-table__cell">33 Church Road, Newport, NP20 1HJ</td>
+                                <td class="govuk-table__cell">19/02/1989</td>
+                                <td class="govuk-table__cell">KDIF113567</td>
+                            </tr>
+
+                            <!-- 22 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Harrison Cole</td>
+                                <td class="govuk-table__cell">56 London Road, Brighton, BN1 4JA</td>
+                                <td class="govuk-table__cell">25/12/1982</td>
+                                <td class="govuk-table__cell">KDIF229841</td>
+                            </tr>
+
+                            <!-- 23 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Henry Bailey</td>
+                                <td class="govuk-table__cell">50 London Road, Gloucester, GL1 3HE</td>
+                                <td class="govuk-table__cell">07/12/1994</td>
+                                <td class="govuk-table__cell">KDIF661849</td>
+                            </tr>
+
+                            <!-- 24 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Imogen Price</td>
+                                <td class="govuk-table__cell">31 King Street, Leeds, LS1 2HL</td>
+                                <td class="govuk-table__cell">09/02/2003</td>
+                                <td class="govuk-table__cell">KDIF883019</td>
+                            </tr>
+
+                            <!-- 25 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Isaac Foster</td>
+                                <td class="govuk-table__cell">29 Station Road, Aberystwyth, SY23 1LH</td>
+                                <td class="govuk-table__cell">05/01/1991</td>
+                                <td class="govuk-table__cell">KDIF110953</td>
+                            </tr>
+
+                            <!-- 26 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Jack Barnes</td>
+                                <td class="govuk-table__cell">61 London Road, Kingston upon Thames, KT2 6ND</td>
+                                <td class="govuk-table__cell">12/01/1984</td>
+                                <td class="govuk-table__cell">KDIF886512</td>
+                            </tr>
+
+                            <!-- 27 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Joseph Watson</td>
+                                <td class="govuk-table__cell">39 Station Road, Ashford, TN23 1PP</td>
+                                <td class="govuk-table__cell">01/12/2001</td>
+                                <td class="govuk-table__cell">KDIF115483</td>
+                            </tr>
+
+                            <!-- 28 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Julian Sterling</td>
+                                <td class="govuk-table__cell">5 Castle Street, Conwy, LL32 8AY</td>
+                                <td class="govuk-table__cell">19/07/2001</td>
+                                <td class="govuk-table__cell">KDIF903412</td>
+                            </tr>
+
+                            <!-- 29 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Layla Long</td>
+                                <td class="govuk-table__cell">26 High Street, Hereford, HR4 9AA</td>
+                                <td class="govuk-table__cell">30/06/1998</td>
+                                <td class="govuk-table__cell">KDIF554107</td>
+                            </tr>
+
+                            <!-- 30 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Lily Phillips</td>
+                                <td class="govuk-table__cell">7 Castle Street, Dover, CT16 1PH</td>
+                                <td class="govuk-table__cell">29/10/1976</td>
+                                <td class="govuk-table__cell">KDIF220485</td>
+                            </tr>
+
+                            <!-- 31 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Logan Lewis</td>
+                                <td class="govuk-table__cell">19 George Street, Bath, BA1 2HE</td>
+                                <td class="govuk-table__cell">17/01/2000</td>
+                                <td class="govuk-table__cell">KDIF338572</td>
+                            </tr>
+
+                            <!-- 32 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Lucas Wright</td>
+                                <td class="govuk-table__cell">14 Queen Street, Exeter, EX4 3SN</td>
+                                <td class="govuk-table__cell">14/07/1979</td>
+                                <td class="govuk-table__cell">KDIF441295</td>
+                            </tr>
+
+                            <!-- 33 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Luke Powell</td>
+                                <td class="govuk-table__cell">48 Castle Street, Shrewsbury, SY1 2BQ</td>
+                                <td class="govuk-table__cell">11/02/1989</td>
+                                <td class="govuk-table__cell">KDIF776329</td>
+                            </tr>
+
+                            <!-- 34 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Marcus Bordy</td>
+                                <td class="govuk-table__cell">78 High Street, Bristol, BS1</td>
+                                <td class="govuk-table__cell">03/09/1998</td>
+                                <td class="govuk-table__cell">KDIF198422</td>
+                            </tr>
+
+                            <!-- 35 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Mason Thomas</td>
+                                <td class="govuk-table__cell">3 Park Road, Newcastle upon Tyne, NE1 8SF</td>
+                                <td class="govuk-table__cell">21/04/1991</td>
+                                <td class="govuk-table__cell">KDIF119044</td>
+                            </tr>
+
+                            <!-- 36 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Matthew Howard</td>
+                                <td class="govuk-table__cell">40 St Mary Street, Cardiff, CF10 1FG</td>
+                                <td class="govuk-table__cell">23/09/1992</td>
+                                <td class="govuk-table__cell">KDIF226934</td>
+                            </tr>
+
+                            <!-- 37 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Maya Hughes</td>
+                                <td class="govuk-table__cell">34 Church Lane, Wrexham, LL13 8LS</td>
+                                <td class="govuk-table__cell">08/03/1993</td>
+                                <td class="govuk-table__cell">KDIF882104</td>
+                            </tr>
+
+                            <!-- 38 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Mia Griffiths</td>
+                                <td class="govuk-table__cell">16 Station Hill, Reading, RG1 1NB</td>
+                                <td class="govuk-table__cell">24/06/1981</td>
+                                <td class="govuk-table__cell">KDIF447230</td>
+                            </tr>
+
+                            <!-- 39 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Nathan Butler</td>
+                                <td class="govuk-table__cell">65 Victoria Street, Merthyr Tydfil, CF47 8BP</td>
+                                <td class="govuk-table__cell">22/08/1986</td>
+                                <td class="govuk-table__cell">KDIF449832</td>
+                            </tr>
+
+                            <!-- 40 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Oliver Hughes</td>
+                                <td class="govuk-table__cell">22 Station Road, Chester, CH1 3DR</td>
+                                <td class="govuk-table__cell">05/06/1995</td>
+                                <td class="govuk-table__cell">KDIF772183</td>
+                            </tr>
+
+                            <!-- 41 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Owen Henderson</td>
+                                <td class="govuk-table__cell">35 Victoria Road, Cambridge, CB4 3DH</td>
+                                <td class="govuk-table__cell">18/11/1977</td>
+                                <td class="govuk-table__cell">KDIF669841</td>
+                            </tr>
+
+                            <!-- 42 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Penelope Wood</td>
+                                <td class="govuk-table__cell">93 High Street, Slough, SL1 1EA</td>
+                                <td class="govuk-table__cell">31/08/1996</td>
+                                <td class="govuk-table__cell">KDIF224378</td>
+                            </tr>
+
+                            <!-- 43 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Ryan Patterson</td>
+                                <td class="govuk-table__cell">87 Park Road, Grimsby, DN32 7EL</td>
+                                <td class="govuk-table__cell">15/12/1975</td>
+                                <td class="govuk-table__cell">KDIF228963</td>
+                            </tr>
+
+                            <!-- 44 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Samuel Cox</td>
+                                <td class="govuk-table__cell">72 London Road, St Albans, AL1 1LN</td>
+                                <td class="govuk-table__cell">16/04/1995</td>
+                                <td class="govuk-table__cell">KDIF449318</td>
+                            </tr>
+
+                            <!-- 45 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Scarlett Bell</td>
+                                <td class="govuk-table__cell">11 Market Place, Norwich, NR2 1ND</td>
+                                <td class="govuk-table__cell">15/08/1983</td>
+                                <td class="govuk-table__cell">KDIF337095</td>
+                            </tr>
+
+                            <!-- 46 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Sebastian Bennett</td>
+                                <td class="govuk-table__cell">44 Park Road, Watford, WD17 2QE</td>
+                                <td class="govuk-table__cell">25/03/1990</td>
+                                <td class="govuk-table__cell">KDIF551049</td>
+                            </tr>
+
+                            <!-- 47 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Sophie Coleman</td>
+                                <td class="govuk-table__cell">52 High Street, Oxford, OX1 4DB</td>
+                                <td class="govuk-table__cell">26/05/1991</td>
+                                <td class="govuk-table__cell">KDIF112395</td>
+                            </tr>
+
+                            <!-- 48 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Stella Russell</td>
+                                <td class="govuk-table__cell">73 London Road, Llandudno, LL30 2SA</td>
+                                <td class="govuk-table__cell">17/07/1983</td>
+                                <td class="govuk-table__cell">KDIF995428</td>
+                            </tr>
+
+                            <!-- 49 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Victoria Ward</td>
+                                <td class="govuk-table__cell">13 Victoria Square, Droitwich, WR9 8DX</td>
+                                <td class="govuk-table__cell">10/11/1986</td>
+                                <td class="govuk-table__cell">KDIF884102</td>
+                            </tr>
+
+                            <!-- 50 -->
+                            <tr class="govuk-table__row result-row">
+                                <td class="govuk-table__cell">Zoe Brooks</td>
+                                <td class="govuk-table__cell">81 Commercial Road, Bournemouth, BH2 5RT</td>
+                                <td class="govuk-table__cell">14/02/1988</td>
+                                <td class="govuk-table__cell">KDIF993764</td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                <!-- ============================================================
+         PAGINATION
+         ============================================================ -->
+
+                <nav class="govuk-pagination" aria-label="Pagination">
+
+                    <div class="govuk-pagination__prev" id="previous-page">
+
+                        <a class="govuk-link govuk-pagination__link" href="#" onclick="changePage(-1); return false;"
+                            rel="prev">
+
+                            <svg class="govuk-pagination__icon govuk-pagination__icon--prev"
+                                xmlns="http://www.w3.org/2000/svg" height="13" width="15" viewBox="0 0 15 13"
+                                aria-hidden="true" focusable="false">
+
+                                <path d="m6.5 0 1.1 1.1L3.7 6.5l3.9 5.4L6.5 13 0 6.5z"></path>
+
+                            </svg>
+
+                            <span class="govuk-pagination__link-title">
+                                Previous
+                            </span>
+
+                        </a>
+
+                    </div>
+
+
+                    <ul class="govuk-pagination__list">
+
+                        <li class="govuk-pagination__item" id="page-1">
+
+                            <a class="govuk-link govuk-pagination__link" href="#" onclick="goToPage(1); return false;">
+                                1
+                            </a>
+
+                        </li>
+
+                        <li class="govuk-pagination__item" id="page-2">
+
+                            <a class="govuk-link govuk-pagination__link" href="#" onclick="goToPage(2); return false;">
+                                2
+                            </a>
+
+                        </li>
+
+                        <li class="govuk-pagination__item" id="page-3">
+
+                            <a class="govuk-link govuk-pagination__link" href="#" onclick="goToPage(3); return false;">
+                                3
+                            </a>
+
+                        </li>
+
+                    </ul>
+
+
+                    <div class="govuk-pagination__next" id="next-page">
+
+                        <a class="govuk-link govuk-pagination__link" href="#" onclick="changePage(1); return false;"
+                            rel="next">
+
+                            <span class="govuk-pagination__link-title">
+                                Next
+                            </span>
+
+                            <svg class="govuk-pagination__icon govuk-pagination__icon--next"
+                                xmlns="http://www.w3.org/2000/svg" height="13" width="15" viewBox="0 0 15 13"
+                                aria-hidden="true" focusable="false">
+
+                                <path d="m8.5 0-1.1 1.1 3.9 5.4L8.5 13 15 6.5z"></path>
+
+                            </svg>
+
+                        </a>
+
+                    </div>
+
+                </nav>
+
+
+            </div>
+
+
+            <!-- ============================================================
+     PAGINATION JAVASCRIPT
+     ============================================================ -->
+
+            <script>
+
+                let currentPage = 1;
+
+                const rowsPerPage = 17;
+
+
+                function displayPage(page) {
+
+                    const rows =
+                        document.querySelectorAll(".result-row");
+
+
+                    const totalResults =
+                        rows.length;
+
+
+                    const totalPages =
+                        Math.ceil(totalResults / rowsPerPage);
+
+
+                    /*
+                    Make sure page is valid
+                    */
+
+                    if (page < 1) {
+                        page = 1;
+                    }
+
+                    if (page > totalPages) {
+                        page = totalPages;
+                    }
+
+
+                    currentPage = page;
+
+
+                    /*
+                    Hide all rows first
+                    */
+
+                    rows.forEach(function (row) {
+
+                        row.style.display = "none";
+
+                    });
+
+
+                    /*
+                    Calculate which rows to show
+                    */
+
+                    const start =
+                        (page - 1) * rowsPerPage;
+
+
+                    const end =
+                        Math.min(
+                            start + rowsPerPage,
+                            totalResults
+                        );
+
+
+                    /*
+                    Show current page rows
+                    */
+
+                    for (let i = start; i < end; i++) {
+
+                        rows[i].style.display = "table-row";
+
+                    }
+
+
+                    /*
+                    Update result counter
+                    */
+
+                    document.getElementById("results-count").innerHTML =
+                        "Showing <strong>" +
+                        (start + 1) +
+                        "–" +
+                        end +
+                        "</strong> of <strong>" +
+                        totalResults +
+                        "</strong> results";
+
+
+                    /*
+                    Highlight current page
+                    */
+
+                    document
+                        .querySelectorAll(".govuk-pagination__item")
+                        .forEach(function (item) {
+
+                            item.classList.remove(
+                                "govuk-pagination__item--current"
+                            );
+
+                        });
+
+
+                    document
+                        .getElementById("page-" + page)
+                        .classList.add(
+                            "govuk-pagination__item--current"
+                        );
+
+
+                    /*
+                    Previous visibility
+                    */
+
+                    if (page === 1) {
+
+                        document.getElementById("previous-page")
+                            .style.visibility = "hidden";
+
+                    } else {
+
+                        document.getElementById("previous-page")
+                            .style.visibility = "visible";
+
+                    }
+
+
+                    /*
+                    Next visibility
+                    */
+
+                    if (page === totalPages) {
+
+                        document.getElementById("next-page")
+                            .style.visibility = "hidden";
+
+                    } else {
+
+                        document.getElementById("next-page")
+                            .style.visibility = "visible";
+
+                    }
+
+                }
+
+
+                function goToPage(page) {
+
+                    displayPage(page);
+
+                }
+
+
+                function changePage(direction) {
+
+                    displayPage(
+                        currentPage + direction
+                    );
+
+                }
+
+
+                /*
+                ============================================================
+                APPLY FILTERS
+                ============================================================
+            
+                Your existing button already has:
+            
+                onclick="myFunction()"
+            
+                So this function shows the results.
+                */
+
+                function myFunction() {
+
+                    document.getElementById("results")
+                        .style.display = "block";
+
+                    displayPage(1);
+
+                }
+
+
+                /*
+                Show the results when the page loads
+                and start on page 1
+                */
+
+                document.addEventListener("DOMContentLoaded", function () {
+
+                    document.getElementById("results")
+                        .style.display = "block";
+
+                    displayPage(1);
+
+                });
+
+            </script>
+
+
+
+
+
+
+            {% endblock %}
