@@ -24,21 +24,234 @@
 
 {% block content %}
 <main>
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full" style="margin-top: -50px; margin-bottom: 10px;">
-            <div>
-                <a class="govuk-heading govuk-link--no-visited-state listing-navigation-selected"
-                    href="unallocated.html">Detailed Search</a>
-                <a class="govuk-heading govuk-link--no-visited-state listing-navigation" style="margin-left: 20px;"
-                    href="allocated.html">Home</a>
-                <a class="govuk-heading govuk-link--no-visited-state listing-navigation" style="margin-left: 20px;"
-                    href="allocated.html">Your Services</a>
-                <a class="govuk-heading govuk-link--no-visited-state listing-navigation" style="margin-left: 20px;"
-                    href="allocated.html">Your Account</a>
-                <a class="govuk-heading govuk-link--no-visited-state listing-navigation" style="margin-left: 20px;"
-                    href="allocated.html">Sign out</a>
+    <style>
+        .hearing-navigation {
+            background-color: #f4f8fb;
+            border-bottom: 1px solid #b1b4b6;
+            margin-bottom: 30px;
+        }
 
-            </div>
+        .hearing-navigation__list {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .hearing-navigation__item {
+            margin: 0;
+            padding: 0;
+        }
+
+        .hearing-navigation__link {
+            display: block;
+            padding: 15px 15px 10px;
+            color: #1a65a6;
+            font-size: 19px;
+            font-weight: 400;
+            line-height: 1.31579;
+            text-decoration: none;
+            border-bottom: 5px solid transparent;
+        }
+
+        .hearing-navigation__link:hover {
+            color: #0f385c;
+            background-color: #cecece;
+            text-decoration: underline;
+            text-decoration-thickness: 3px;
+            text-underline-offset: 4px;
+        }
+
+        .hearing-navigation__item--active .hearing-navigation__link {
+            color: #0b0c0c;
+            background-color: #ffffff;
+            border-bottom-color: #1d70b8;
+        }
+
+        .hearing-navigation__item--active .hearing-navigation__link:hover {
+            color: #0b0c0c;
+            background-color: #ffffff;
+        }
+
+        .hearing-navigation__link:focus {
+            position: relative;
+            z-index: 1;
+            color: #0b0c0c;
+            background-color: #ffdd00;
+            outline: 3px solid #ffdd00;
+            outline-offset: 0;
+        }
+
+        @media (max-width: 640px) {
+            .hearing-navigation__list {
+                display: block;
+            }
+
+            .hearing-navigation__link {
+                padding: 12px 15px;
+            }
+        }
+    </style>
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full" style="margin-top: -50px;">
+
+            <nav class="hearing-navigation" aria-label="Hearing navigation">
+                <ul class="hearing-navigation__list">
+
+                    <li class="hearing-navigation__item">
+                        <a class="hearing-navigation__link" href="">
+                            Back to hearing list
+                        </a>
+                    </li>
+
+                    <li class="hearing-navigation__item hearing-navigation__item--active">
+                        <a class="hearing-navigation__link" href="" aria-current="page">
+                            Manage hearing
+                        </a>
+                    </li>
+
+                    <li class="hearing-navigation__item">
+                        <a class="hearing-navigation__link" href="">
+                            Enter pleas
+                        </a>
+                    </li>
+
+                    <li class="hearing-navigation__item">
+                        <a class="hearing-navigation__link" href="">
+                            Enter verdicts
+                        </a>
+                    </li>
+
+                    <li class="hearing-navigation__item">
+                        <a class="hearing-navigation__link" href="/bulk-result/enter-results">
+                            Enter results
+                        </a>
+                    </li>
+
+                </ul>
+            </nav>
+
+        </div>
+    </div>
+
+    <style>
+        @font-face {
+            font-family: "GDS Transport";
+            src: url("https://design-system.service.gov.uk/assets/fonts/light-94a07eaa.woff2") format("woff2");
+            font-weight: 300;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: "GDS Transport";
+            src: url("https://design-system.service.gov.uk/assets/fonts/bold-b542bebc.woff2") format("woff2");
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        .moj-success-alert {
+            box-sizing: border-box;
+
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+
+            width: 100%;
+            margin-bottom: 30px;
+            padding: 15px;
+
+            /* 5px border on ALL sides */
+            border: 5px solid #00703c;
+
+            background: #ffffff;
+            color: #0b0c0c;
+
+            font-family: "GDS Transport", Arial, sans-serif;
+            font-size: 19px;
+            font-weight: 300;
+            line-height: 1.31579;
+        }
+
+        .moj-success-alert__icon {
+            flex: 0 0 30px;
+
+            width: 30px;
+            height: 30px;
+            margin-top: 1px;
+
+            color: #00703c;
+        }
+
+        .moj-success-alert__content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .moj-success-alert__heading {
+            margin: 0 0 10px;
+
+            color: #0b0c0c;
+
+            font-family: "GDS Transport", Arial, sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 1.25;
+        }
+
+        .moj-success-alert__content a {
+            color: #005ea8;
+            text-decoration: underline;
+        }
+
+        .moj-success-alert__content a:hover {
+            color: #003078;
+        }
+
+        .moj-success-alert__content a:focus {
+            outline: 3px solid #ffdd00;
+            outline-offset: 0;
+            background: #ffdd00;
+            color: #0b0c0c;
+        }
+
+        @media (max-width: 640px) {
+            .moj-success-alert {
+                gap: 12px;
+                padding: 12px;
+
+                font-size: 16px;
+                line-height: 1.25;
+            }
+
+            .moj-success-alert__icon {
+                flex-basis: 25px;
+                width: 25px;
+                height: 25px;
+            }
+
+            .moj-success-alert__heading {
+                font-size: 19px;
+                line-height: 1.3;
+            }
+        }
+    </style>
+
+    <div class="moj-success-alert" role="region" aria-label="success: File uploaded successfully">
+        <svg class="moj-success-alert__icon" role="presentation" focusable="false" xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 30 30" aria-hidden="true">
+            <path
+                d="M11.2869 24.6726L2.00415 15.3899L4.62189 12.7722L11.2869 19.4186L25.3781 5.32739L27.9958 7.96369L11.2869 24.6726Z"
+                fill="currentColor" />
+        </svg>
+
+        <div class="moj-success-alert__content">
+            <h2 class="moj-success-alert__heading">
+                New bulk list created
+            </h2>
         </div>
     </div>
 

@@ -183,3 +183,106 @@
 
     color: #ffffff;
 }
+
+
+// Purple result labels
+.result-label {
+    display: inline-block;
+    background-color: #d8d3dc;
+    color: #000000;
+    font-size: 19px;
+    line-height: 1.31579;
+    font-weight: 700;
+    padding: 6px 10px;
+}
+
+// Liability order + Change/Delete
+.result-row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 20px;
+}
+
+// Make all input headings small and bold
+.result-details-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 19px;
+    line-height: 1.31579;
+    font-weight: 700;
+}
+
+// Keep the links aligned with the larger result label
+.result-actions {
+    display: inline-flex;
+    align-items: center;
+}
+
+// Horizontal dividers
+.results-divider {
+    border: 0;
+    border-top: 2px solid #b1b4b6;
+    margin: 0 0 20px 0;
+}
+
+// Case heading row
+.bulk-case-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.bulk-case-title {
+    display: flex;
+    gap: 10px;
+    font-size: 19px;
+    line-height: 1.31579;
+}
+
+.bulk-case-header .govuk-link {
+    white-space: nowrap;
+}
+
+// Results columns
+.bulk-results {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 80px;
+}
+
+.bulk-results__column {
+    min-width: 0;
+}
+
+.bulk-results__column .govuk-heading-s {
+    margin-bottom: 4px;
+}
+
+.bulk-results__column .govuk-body {
+    margin-bottom: 4px;
+}
+
+.bulk-results__empty {
+    color: #505a5f;
+}
+
+// Mobile
+@media (max-width: 40.0525em) {
+
+    .bulk-case-header {
+        display: block;
+    }
+
+    .bulk-case-header .govuk-link {
+        display: inline-block;
+        margin-top: 10px;
+    }
+
+    .bulk-results {
+        grid-template-columns: 1fr;
+        row-gap: 25px;
+    }
+
+}

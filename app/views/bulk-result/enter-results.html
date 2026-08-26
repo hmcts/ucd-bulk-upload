@@ -1,0 +1,226 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+{{ serviceName }}
+{% endblock %}
+
+{% block beforeContent %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full" style="margin-top: -10px; margin-bottom: 20px;">
+        <div class="govuk-phase-banner">
+            <p class="govuk-phase-banner__content">
+                <strong class="govuk-tag govuk-phase-banner__content__tag">
+                    Prototype
+                </strong>
+                <span class="govuk-phase-banner__text">
+                    This is a prototype for user research - it is not accessible and may not be accurate to final
+                    designs.
+                </span>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<main>
+    <style>
+        .hearing-navigation {
+            background-color: #f4f8fb;
+            border-bottom: 1px solid #b1b4b6;
+            margin-bottom: 30px;
+        }
+
+        .hearing-navigation__list {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .hearing-navigation__item {
+            margin: 0;
+            padding: 0;
+        }
+
+        .hearing-navigation__link {
+            display: block;
+            padding: 15px 15px 10px;
+            color: #1a65a6;
+            font-size: 19px;
+            font-weight: 400;
+            line-height: 1.31579;
+            text-decoration: none;
+            border-bottom: 5px solid transparent;
+        }
+
+        .hearing-navigation__link:hover {
+            color: #0f385c;
+            background-color: #cecece;
+            text-decoration: underline;
+            text-decoration-thickness: 3px;
+            text-underline-offset: 4px;
+        }
+
+        .hearing-navigation__item--active .hearing-navigation__link {
+            color: #0b0c0c;
+            background-color: #ffffff;
+            border-bottom-color: #1d70b8;
+        }
+
+        .hearing-navigation__item--active .hearing-navigation__link:hover {
+            color: #0b0c0c;
+            background-color: #ffffff;
+        }
+
+        .hearing-navigation__link:focus {
+            position: relative;
+            z-index: 1;
+            color: #0b0c0c;
+            background-color: #ffdd00;
+            outline: 3px solid #ffdd00;
+            outline-offset: 0;
+        }
+
+        @media (max-width: 640px) {
+            .hearing-navigation__list {
+                display: block;
+            }
+
+            .hearing-navigation__link {
+                padding: 12px 15px;
+            }
+        }
+    </style>
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full" style="margin-top: -50px;">
+
+            <nav class="hearing-navigation" aria-label="Hearing navigation">
+                <ul class="hearing-navigation__list">
+
+                    <li class="hearing-navigation__item">
+                        <a class="hearing-navigation__link" href="unallocated.html">
+                            Back to hearing list
+                        </a>
+                    </li>
+
+                    <li class="hearing-navigation__item hearing-navigation__item">
+                        <a class="hearing-navigation__link" href="allocated.html" aria-current="page">
+                            Manage hearing
+                        </a>
+                    </li>
+
+                    <li class="hearing-navigation__item">
+                        <a class="hearing-navigation__link" href="allocated.html">
+                            Enter pleas
+                        </a>
+                    </li>
+
+                    <li class="hearing-navigation__item">
+                        <a class="hearing-navigation__link" href="allocated.html">
+                            Enter verdicts
+                        </a>
+                    </li>
+
+                    <li class="hearing-navigation__item--active">
+                        <a class="hearing-navigation__link" href="allocated.html">
+                            Enter results
+                        </a>
+                    </li>
+
+                </ul>
+            </nav>
+
+        </div>
+    </div>
+
+    <h1 class="govuk-heading-l">Enter bulk results</h1>
+
+    <!-- Action bar -->
+    <div class="results-actions">
+        <a href="/bulk-result/result-details" class="govuk-button create-draft">
+            Create draft results
+        </a>
+
+        <a href="/bulk-result/result-details" class="govuk-button govuk-button--secondary">
+            Save and continue
+        </a>
+    </div>
+
+    <style>
+        .results-actions {
+            background-color: #f3f2f1;
+            padding: 20px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .results-actions .govuk-button {
+            margin-bottom: 0;
+            margin-right: 10px;
+        }
+    </style>
+
+    <div class="filters" style="display: inline-block;">
+        <h2 class="govuk-heading-m">Bulk case details</h2>
+        <div class="grid-container-unallocated">
+
+
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Prosecutor
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        Liverpool City Council
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        URN
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        4390540592
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Offence
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        Complaints for council tax liability order (multiple cases)
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Lead defendant
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        <p class="govuk-body">Abigail Morgan</p>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Linked defendants
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        <p class="govuk-body">10</p>
+                    </dd>
+                </div>
+            </dl>
+
+            <div class="govuk-form-group">
+                <h1 class="govuk-label-wrapper">
+                    <label class="govuk-label govuk-label--s" for="more-detail">
+                        1. Complaints for council tax liability order (multiple cases)
+                    </label>
+                </h1>
+                <textarea class="govuk-textarea" id="more-detail" name="moreDetail" rows="5"
+                    aria-describedby="more-detail-hint"></textarea>
+            </div>
+
+
+
+            {% endblock %}

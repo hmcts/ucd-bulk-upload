@@ -24,21 +24,115 @@
 
 {% block content %}
 <main>
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full" style="margin-top: -50px; margin-bottom: 10px;">
-            <div>
-                <a class="govuk-heading govuk-link--no-visited-state listing-navigation-selected"
-                    href="unallocated.html">Detailed Search</a>
-                <a class="govuk-heading govuk-link--no-visited-state listing-navigation" style="margin-left: 20px;"
-                    href="allocated.html">Home</a>
-                <a class="govuk-heading govuk-link--no-visited-state listing-navigation" style="margin-left: 20px;"
-                    href="allocated.html">Your Services</a>
-                <a class="govuk-heading govuk-link--no-visited-state listing-navigation" style="margin-left: 20px;"
-                    href="allocated.html">Your Account</a>
-                <a class="govuk-heading govuk-link--no-visited-state listing-navigation" style="margin-left: 20px;"
-                    href="allocated.html">Sign out</a>
+    <style>
+        .hearing-navigation {
+            background-color: #f4f8fb;
+            border-bottom: 1px solid #b1b4b6;
+            margin-bottom: 30px;
+        }
 
-            </div>
+        .hearing-navigation__list {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .hearing-navigation__item {
+            margin: 0;
+            padding: 0;
+        }
+
+        .hearing-navigation__link {
+            display: block;
+            padding: 15px 15px 10px;
+            color: #1a65a6;
+            font-size: 19px;
+            font-weight: 400;
+            line-height: 1.31579;
+            text-decoration: none;
+            border-bottom: 5px solid transparent;
+        }
+
+        .hearing-navigation__link:hover {
+            color: #0f385c;
+            background-color: #cecece;
+            text-decoration: underline;
+            text-decoration-thickness: 3px;
+            text-underline-offset: 4px;
+        }
+
+        .hearing-navigation__item--active .hearing-navigation__link {
+            color: #0b0c0c;
+            background-color: #ffffff;
+            border-bottom-color: #1d70b8;
+        }
+
+        .hearing-navigation__item--active .hearing-navigation__link:hover {
+            color: #0b0c0c;
+            background-color: #ffffff;
+        }
+
+        .hearing-navigation__link:focus {
+            position: relative;
+            z-index: 1;
+            color: #0b0c0c;
+            background-color: #ffdd00;
+            outline: 3px solid #ffdd00;
+            outline-offset: 0;
+        }
+
+        @media (max-width: 640px) {
+            .hearing-navigation__list {
+                display: block;
+            }
+
+            .hearing-navigation__link {
+                padding: 12px 15px;
+            }
+        }
+    </style>
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full" style="margin-top: -50px;">
+
+            <nav class="hearing-navigation" aria-label="Hearing navigation">
+                <ul class="hearing-navigation__list">
+
+                    <li class="hearing-navigation__item">
+                        <a class="hearing-navigation__link" href="unallocated.html">
+                            Back to hearing list
+                        </a>
+                    </li>
+
+                    <li class="hearing-navigation__item hearing-navigation__item--active">
+                        <a class="hearing-navigation__link" href="allocated.html" aria-current="page">
+                            Manage hearing
+                        </a>
+                    </li>
+
+                    <li class="hearing-navigation__item">
+                        <a class="hearing-navigation__link" href="allocated.html">
+                            Enter pleas
+                        </a>
+                    </li>
+
+                    <li class="hearing-navigation__item">
+                        <a class="hearing-navigation__link" href="allocated.html">
+                            Enter verdicts
+                        </a>
+                    </li>
+
+                    <li class="hearing-navigation__item">
+                        <a class="hearing-navigation__link" href="allocated.html">
+                            Enter results
+                        </a>
+                    </li>
+
+                </ul>
+            </nav>
+
         </div>
     </div>
 
