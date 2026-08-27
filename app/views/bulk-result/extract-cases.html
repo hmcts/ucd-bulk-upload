@@ -145,7 +145,7 @@
 
 
 
-            <form method="get">
+            <form id="search-form">
 
                 <div class="govuk-form-group">
                     <label class="govuk-label" for="search">
@@ -154,10 +154,9 @@
 
                     <div style="display:flex; gap:0.5rem; align-items:center;">
 
-                        <input class="govuk-input govuk-input--width-10" id="search" name="search" type="search"
-                            value="{{ search }}">
+                        <input class="govuk-input govuk-input--width-10" id="search" name="search" type="search">
 
-                        <button class="govuk-button govuk-!-margin-bottom-0">
+                        <button type="submit" class="govuk-button govuk-!-margin-bottom-0">
                             Search
                         </button>
 
@@ -1256,11 +1255,15 @@
                 <script>
                     let currentPage = 1;
                     const rowsPerPage = 17;
+                    let filteredRows = [];
+
+                    const allRows = Array.from(
+                        document.querySelectorAll("#results-table-body .result-row")
+                    );
 
                     function displayPage(page) {
-                        const rows = document.querySelectorAll("#results-table-body .result-row");
-                        const totalResults = rows.length;
-                        const totalPages = Math.ceil(totalResults / rowsPerPage);
+                        const totalResults = filteredRows.length;
+                        const totalPages = Math.max(1, Math.ceil(totalResults / rowsPerPage));
 
                         // Keep page within valid range
                         if (page < 1) {
@@ -1274,7 +1277,7 @@
                         currentPage = page;
 
                         // Hide all rows
-                        rows.forEach(function (row) {
+                        allRows.forEach(function (row) {
                             row.style.display = "none";
                         });
 
@@ -1282,20 +1285,26 @@
                         const start = (page - 1) * rowsPerPage;
                         const end = Math.min(start + rowsPerPage, totalResults);
 
-                        // Show rows for current page
+                        // Show matching rows for current page
                         for (let i = start; i < end; i++) {
-                            rows[i].style.display = "table-row";
+                            filteredRows[i].style.display = "table-row";
                         }
 
                         // Update result count
-                        document.getElementById("results-count").innerHTML =
-                            "Showing <strong>" +
-                            (start + 1) +
-                            "–" +
-                            end +
-                            "</strong> of <strong>" +
-                            totalResults +
-                            "</strong> results";
+                        const resultsCount = document.getElementById("results-count");
+
+                        if (totalResults === 0) {
+                            resultsCount.innerHTML = "Showing <strong>0</strong> results";
+                        } else {
+                            resultsCount.innerHTML =
+                                "Showing <strong>" +
+                                (start + 1) +
+                                "–" +
+                                end +
+                                "</strong> of <strong>" +
+                                totalResults +
+                                "</strong> results";
+                        }
 
                         // Update current page
                         document.querySelectorAll(".govuk-pagination__item").forEach(function (item) {
@@ -1304,14 +1313,14 @@
 
                         const currentPageElement = document.getElementById("page-" + page);
 
-                        if (currentPageElement) {
+                        if (currentPageElement && totalResults > 0) {
                             currentPageElement.classList.add("govuk-pagination__item--current");
                         }
 
                         // Previous button
                         const previousPage = document.getElementById("previous-page");
 
-                        if (page === 1) {
+                        if (page === 1 || totalResults === 0) {
                             previousPage.style.visibility = "hidden";
                         } else {
                             previousPage.style.visibility = "visible";
@@ -1320,11 +1329,26 @@
                         // Next button
                         const nextPage = document.getElementById("next-page");
 
-                        if (page === totalPages) {
+                        if (page === totalPages || totalResults === 0) {
                             nextPage.style.visibility = "hidden";
                         } else {
                             nextPage.style.visibility = "visible";
                         }
+                    }
+
+                    function searchRows(searchTerm) {
+                        searchTerm = searchTerm.toLowerCase().trim();
+
+                        if (searchTerm === "") {
+                            filteredRows = allRows;
+                        } else {
+                            filteredRows = allRows.filter(function (row) {
+                                return row.textContent.toLowerCase().includes(searchTerm);
+                            });
+                        }
+
+                        // Always return to page 1 after a search
+                        displayPage(1);
                     }
 
                     function goToPage(page) {
@@ -1335,15 +1359,26 @@
                         displayPage(currentPage + direction);
                     }
 
-                    // Run pagination when the page loads
                     document.addEventListener("DOMContentLoaded", function () {
+
+                        // Initially show all rows
+                        filteredRows = allRows;
+
                         displayPage(1);
+
+                        // Search
+                        document.getElementById("search-form").addEventListener("submit", function (event) {
+                            event.preventDefault();
+
+                            const searchTerm = document.getElementById("search").value;
+
+                            searchRows(searchTerm);
+                        });
                     });
 
-                    // Keep this if another part of your prototype calls myFunction()
                     function myFunction() {
                         document.getElementById("results").style.display = "block";
-                        displayPage(1);
+                        searchRows(document.getElementById("search").value);
                     }
                 </script>
 
