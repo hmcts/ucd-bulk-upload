@@ -140,11 +140,13 @@
         <h1 class="govuk-heading-l">Confirm the cases to extract</h1>
         <div class="grid-container-unallocated">
 
-            <p>You are extracting the following <strong>10</strong> cases from this bulk list. Check this is correct
-                before confirming.
-            </p>
-
-            <p>This action cannot be undone. </p>
+            <div class="govuk-warning-text">
+                <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                <strong class="govuk-warning-text__text">
+                    <span class="govuk-visually-hidden">Warning</span>
+                    You are extracting 10 cases from this bulk list. Once confirmed this cannot be undone.
+                </strong>
+            </div>
 
 
             <table class="govuk-table">
