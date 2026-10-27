@@ -1,0 +1,413 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+Case details – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+{% endblock %}
+
+{% block content %}
+
+<style>
+  /* Content fills most of the page width (never narrower than 960px) */
+  .govuk-width-container {
+    max-width: max(960px, 82vw);
+  }
+
+  /* Close the gap between the 'Common Platform' row and the beta banner */
+  .govuk-main-wrapper { padding-top: 0 !important; }
+  .govuk-phase-banner { padding-top: 10px; padding-bottom: 10px; border-bottom: 0; margin-bottom: 0; }
+
+  /* Use Arial everywhere, including the header and footer */
+  html, body, * {
+    font-family: Arial, Helvetica, sans-serif !important;
+  }
+
+  .case-bar {
+    background: #366db3;
+    color: #fff;
+    padding: 12px 11px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+  }
+  .case-bar a, .case-bar a:visited { color: #fff; margin-left: 20px; }
+  .case-bar__ref { font-size: 19px; }
+
+  .case-warning {
+    background: #c24b42;
+    color: #fff;
+    padding: 12px 15px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+    font-size: 19px;
+  }
+  .case-warning svg { width: 26px; height: 26px; fill: #fff; flex: none; }
+
+  .case-tabs {
+    display: flex;
+    gap: 30px;
+    border-bottom: 1px solid #b1b4b6;
+    margin-bottom: 30px;
+  }
+  .case-tabs a {
+    display: block;
+    padding: 15px 0 12px;
+    font-size: 19px;
+    text-decoration: none;
+    border-bottom: 4px solid transparent;
+    margin-bottom: -1px;
+  }
+  .case-tabs a:hover { text-decoration: underline; }
+  .case-tabs a[aria-current="page"] { border-bottom-color: #1d70b8; }
+
+  .case-panel {
+    background: #f3f2f1;
+    padding: 15px 15px 5px;
+    margin-bottom: 30px;
+  }
+  .case-panel .govuk-summary-list { margin-bottom: 10px; }
+  .case-panel .govuk-summary-list__row { border-bottom: 0; }
+
+  .defendant-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .defendant-header .govuk-link { font-size: 24px; font-weight: 700; }
+
+  .plain-list .govuk-summary-list__row { border-bottom: 0; }
+  .plain-list .govuk-summary-list__key { color: #505a5f; font-weight: 400; }
+
+  /* Access pop-up */
+  body.modal-open { overflow: hidden; }
+  .access-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .access-overlay[hidden] { display: none; }
+  .access-dialog {
+    background: #fff;
+    width: 100%;
+    max-width: 640px;
+    max-height: 100%;
+    overflow-y: auto;
+    padding: 26px;
+  }
+  .access-dialog__title {
+    background: #d4351c;
+    color: #fff;
+    font-weight: 700;
+    font-size: 19px;
+    padding: 12px 14px;
+    margin: 0 0 25px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .access-dialog__title svg { width: 26px; height: 26px; flex: none; }
+  .access-dialog__actions { display: flex; align-items: center; gap: 25px; margin-top: 30px; }
+  .access-dialog__actions .govuk-button { margin-bottom: 0; }
+
+  .case-rule { border: 0; border-top: 1px solid #0b0c0c; margin: 10px 0 20px; }
+
+  .side-section {
+    border-top: 2px solid #1d70b8;
+    padding-top: 15px;
+    margin-bottom: 30px;
+  }
+  .side-section h2 { margin-bottom: 15px; }
+  .side-section ul { list-style: none; padding: 0; margin: 0; }
+
+  .timeline-card { border: 1px solid #b1b4b6; margin-bottom: 0; }
+  .timeline-card__date { background: #f3f2f1; padding: 12px; font-size: 19px; }
+  .timeline-card__body { padding: 12px; }
+  .timeline-card__body p { margin-bottom: 10px; }
+  .timeline-connector {
+    width: 1px; height: 30px; background: #b1b4b6; margin-left: 30px;
+  }
+  .muted { color: #505a5f; }
+</style>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <div class="govuk-phase-banner">
+      <p class="govuk-phase-banner__content">
+        <strong class="govuk-tag govuk-phase-banner__content__tag">beta</strong>
+        <span class="govuk-phase-banner__text">This is a new service</span>
+      </p>
+    </div>
+
+    <div class="case-bar">
+      <div class="case-bar__ref">
+        <span>TY368832647</span>&nbsp;&nbsp;<strong>Oliver Tate</strong>
+      </div>
+      <div>
+        <a href="#" class="govuk-link">Restrict access</a>
+        <a href="#" class="govuk-link">Edit case</a>
+      </div>
+    </div>
+
+    <div class="case-warning" role="alert">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5zm-3 8V7a3 3 0 0 1 6 0v3H9z"/>
+      </svg>
+      <span>This case is located outside of your working area - access to this case is being logged for audit purposes</span>
+    </div>
+
+    <nav class="case-tabs" aria-label="Case navigation">
+      <a href="#" class="govuk-link" aria-current="page">Case at a glance</a>
+      <a href="#" class="govuk-link">Case material</a>
+      <a href="#" class="govuk-link">Correspondence</a>
+      <a href="#" class="govuk-link">Case management</a>
+    </nav>
+
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+
+  <!-- Main column -->
+  <div class="govuk-grid-column-two-thirds">
+
+    <div class="case-panel">
+      <h1 class="govuk-heading-l">Case details</h1>
+      <dl class="govuk-summary-list plain-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">Prosecutor</dt>
+          <dd class="govuk-summary-list__value"><strong>CITYPF</strong></dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">Case markers</dt>
+          <dd class="govuk-summary-list__value"><a href="#" class="govuk-link">Add case marker</a></dd>
+        </div>
+      </dl>
+    </div>
+
+    <h2 class="govuk-heading-l govuk-!-margin-bottom-5">1 defendant</h2>
+
+    <div class="defendant-header">
+      <a href="#" class="govuk-link">Oliver TATE</a>
+      <a href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-0">
+        Driver record
+      </a>
+    </div>
+
+    <dl class="govuk-summary-list plain-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Address</dt>
+        <dd class="govuk-summary-list__value">50 Main Street, Main Street, Liverpool, Merseyside, NW1 5BR</dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Age (DOB)</dt>
+        <dd class="govuk-summary-list__value">32 years old (5 October 1994)</dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Arrest summons number</dt>
+        <dd class="govuk-summary-list__value">2391NX0000983758296D</dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Remand status</dt>
+        <dd class="govuk-summary-list__value">Custody</dd>
+      </div>
+    </dl>
+
+    <hr class="case-rule">
+
+    <dl class="govuk-summary-list plain-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Offence</dt>
+        <dd class="govuk-summary-list__value">
+          <p class="govuk-body govuk-!-margin-bottom-3">
+            1. <a href="#" class="govuk-link">Attempt theft of motor vehicle</a>
+          </p>
+          <p class="govuk-body muted govuk-!-margin-bottom-0">TH68013A</p>
+          <p class="govuk-body muted govuk-!-margin-bottom-3">
+            Contrary to section 1(1) of the Criminal Attempts Act 1981.
+          </p>
+          <p class="govuk-body">Attempt theft to vehicle</p>
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Plea</dt>
+        <dd class="govuk-summary-list__value">
+          <div style="display:flex; justify-content:space-between;">
+            <span>Guilty</span>
+            <span class="muted">On 5 October 2026</span>
+          </div>
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Verdict</dt>
+        <dd class="govuk-summary-list__value">Not yet entered</dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Results</dt>
+        <dd class="govuk-summary-list__value">
+          <p class="govuk-body govuk-!-margin-bottom-0">RIPC - Remand in Police detention</p>
+          <p class="govuk-body">
+            Remanded in police custody until hearing on 08/10/2026 at 09:00 in Courtroom 01,
+            Lavender Hill Magistrates' Court. Adjournment reason(s): To attend or a warrant to issue.
+            Bail Exception(s): Defendant charged with murder. Reason for applying: Previous record and character.
+          </p>
+          <p class="govuk-body muted govuk-!-margin-bottom-0">Result/Order made on</p>
+          <p class="govuk-body muted">05-10-2026</p>
+          <p class="govuk-body muted govuk-!-margin-bottom-0">Shared On</p>
+          <p class="govuk-body muted">05-10-2026</p>
+        </dd>
+      </div>
+    </dl>
+
+  </div>
+
+  <!-- Side column -->
+  <div class="govuk-grid-column-one-third">
+
+    <div class="side-section">
+      <h2 class="govuk-heading-m">Timeline</h2>
+
+      <div class="timeline-card">
+        <div class="timeline-card__date">08 Oct 2026</div>
+        <div class="timeline-card__body">
+          <p class="govuk-body"><strong>Plea</strong></p>
+          <p class="govuk-body muted govuk-!-margin-bottom-0">Lavender Hill Magistrates' Court, Courtroom 01, 10:00 AM</p>
+          <p class="govuk-body muted">Estimated duration: 20 minutes</p>
+          <p class="govuk-body">Oliver Tate</p>
+          <p class="govuk-body govuk-!-margin-bottom-0"><a href="#" class="govuk-link">Manage hearing</a></p>
+        </div>
+      </div>
+
+      <div class="timeline-connector"></div>
+
+      <div class="timeline-card">
+        <div class="timeline-card__date">05 Oct 2026</div>
+        <div class="timeline-card__body">
+          <p class="govuk-body"><strong>First hearing</strong></p>
+          <p class="govuk-body muted govuk-!-margin-bottom-0">Lavender Hill Magistrates' Court, Courtroom 01, 11:30 AM</p>
+          <p class="govuk-body muted">Estimated duration: 20 minutes</p>
+          <p class="govuk-body">Oliver Tate</p>
+          <p class="govuk-body govuk-!-margin-bottom-0"><a href="#" class="govuk-link">Manage hearing</a></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-section">
+      <h2 class="govuk-heading-m">Other case links</h2>
+      <ul>
+        <li><a href="#" class="govuk-link">Create court extracts, record sheets and certificates</a></li>
+        <li><a href="#" class="govuk-link">Create hearing</a></li>
+        <li><a href="#" class="govuk-link">Add application</a></li>
+        <li><a href="#" class="govuk-link">Create activity</a></li>
+        <li><a href="#" class="govuk-link">Outstanding activities</a></li>
+      </ul>
+    </div>
+
+    <div class="side-section">
+      <h2 class="govuk-heading-m">Case notes</h2>
+      <details class="govuk-details">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">Add case note</span>
+        </summary>
+        <div class="govuk-details__text">
+          <div class="govuk-form-group">
+            <label class="govuk-label" for="case-note">Note</label>
+            <textarea class="govuk-textarea" id="case-note" name="caseNote" rows="4"></textarea>
+          </div>
+        </div>
+      </details>
+    </div>
+
+  </div>
+</div>
+
+<!-- Access pop-up: shown on page load, cleared by choosing a reason and pressing Continue -->
+<div class="access-overlay" id="access-overlay" role="dialog" aria-modal="true" aria-labelledby="access-title">
+  <div class="access-dialog">
+    <h2 class="access-dialog__title" id="access-title">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <circle cx="12" cy="12" r="11" fill="#fff"/>
+        <rect x="10.8" y="5.5" width="2.4" height="8" rx="1.2" fill="#d4351c"/>
+        <circle cx="12" cy="17.2" r="1.5" fill="#d4351c"/>
+      </svg>
+      Cases listed for hearing today
+    </h2>
+
+    <p class="govuk-body govuk-!-font-size-24">
+      Changing anything could affect the judicial decision for the following cases:
+    </p>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li><strong>TY368832647</strong></li>
+    </ul>
+
+    <div class="govuk-form-group">
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-!-font-size-24">Select why you need access</legend>
+        <div class="govuk-radios" data-module="govuk-radios">
+          <div class="govuk-radios__item">
+            <input class="govuk-radios__input" id="access-reason-1" name="accessReason" type="radio" value="running">
+            <label class="govuk-label govuk-radios__label" for="access-reason-1">
+              I'm running the hearing today
+            </label>
+          </div>
+          <div class="govuk-radios__item">
+            <input class="govuk-radios__input" id="access-reason-2" name="accessReason" type="radio" value="not-running">
+            <label class="govuk-label govuk-radios__label" for="access-reason-2">
+              I need access but I'm not running today's hearing
+            </label>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="access-dialog__actions">
+      <button type="button" class="govuk-button" id="access-continue" disabled aria-disabled="true">Continue</button>
+      <a href="#" class="govuk-link" id="access-cancel">Cancel</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var overlay = document.getElementById('access-overlay');
+    var button = document.getElementById('access-continue');
+    var radios = document.querySelectorAll('input[name="accessReason"]');
+
+    document.body.classList.add('modal-open');
+    if (radios.length) { radios[0].focus(); }
+
+    // Continue is only enabled once a reason has been selected
+    radios.forEach(function (radio) {
+      radio.addEventListener('change', function () {
+        button.disabled = false;
+        button.removeAttribute('aria-disabled');
+      });
+    });
+
+    // Continue clears the pop-up and returns to the page
+    button.addEventListener('click', function () {
+      overlay.hidden = true;
+      document.body.classList.remove('modal-open');
+    });
+
+    // Cancel does nothing, so the pop-up stays until a reason is chosen
+    document.getElementById('access-cancel').addEventListener('click', function (e) {
+      e.preventDefault();
+    });
+  })();
+</script>
+
+{% endblock %}
