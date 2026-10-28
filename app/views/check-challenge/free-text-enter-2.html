@@ -1,0 +1,98 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+Case outside working area – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+{% endblock %}
+
+{% block content %}
+
+<style>
+  /* Match the width and font used on the case details page */
+  .govuk-width-container {
+    max-width: max(960px, 82vw);
+  }
+  html, body, * {
+    font-family: Arial, Helvetica, sans-serif !important;
+  }
+
+  .details-panel {
+    background: #f8f8f8;
+    padding: 20px 20px 35px;
+    margin-bottom: 40px;
+  }
+  .details-panel h1 { margin-bottom: 30px; }
+  .details-panel__row { display: flex; }
+  .details-panel__col { width: 33%; }
+  .details-panel__col p { margin-bottom: 20px; }
+  .details-panel__col p:last-child { margin-bottom: 0; }
+
+  .reason-textarea { width: 100%; }
+  .reason-actions { margin-top: 30px; }
+  .reason-actions .govuk-button { margin-bottom: 25px; display: inline-block; }
+</style>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <div class="details-panel">
+      <h1 class="govuk-heading-xl">Case details</h1>
+      <div class="details-panel__row">
+        <div class="details-panel__col">
+          <p class="govuk-body"><strong>Defendants</strong></p>
+          <p class="govuk-body">Oliver Tate</p>
+        </div>
+        <div class="details-panel__col">
+          <p class="govuk-body"><strong>DOB</strong></p>
+          <p class="govuk-body">5 October 1994</p>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="govuk-heading-m">Case outside working area</h2>
+
+    <p class="govuk-body">
+      This case is located outside of your working area. You must only access case material where you
+      have a business need to do so. Please enter the reason for accessing this case before proceeding.
+      This reason will be recorded for audit purposes.
+    </p>
+
+    <div class="govuk-form-group">
+      <label class="govuk-visually-hidden" for="access-reason">Reason for accessing this case</label>
+      <textarea class="govuk-textarea reason-textarea" id="access-reason" name="accessReason"
+                rows="5" maxlength="250" aria-describedby="access-reason-info"></textarea>
+      <div id="access-reason-info" class="govuk-hint" aria-live="polite">
+        You have 250 characters remaining
+      </div>
+    </div>
+
+    <div class="reason-actions">
+      <a href="free-text-reason-1.html" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+        Proceed to case
+      </a>
+      <br>
+      <a href="javascript:history.back()" class="govuk-link">Cancel</a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  (function () {
+    var box = document.getElementById('access-reason');
+    var info = document.getElementById('access-reason-info');
+    var max = 250;
+
+    function update() {
+      var left = max - box.value.length;
+      info.textContent = 'You have ' + left + ' character' + (left === 1 ? '' : 's') + ' remaining';
+    }
+
+    box.addEventListener('input', update);
+    update();
+  })();
+</script>
+
+{% endblock %}
