@@ -4,6 +4,9 @@
     "serve": "govuk-prototype-kit serve",
     "start": "govuk-prototype-kit start"
   },
+  "engines": {
+    "node": "24.22.0"
+  },
   "dependencies": {
     "@govuk-prototype-kit/common-templates": "3.0.0",
     "@govuk-prototype-kit/step-by-step": "3.0.0",
