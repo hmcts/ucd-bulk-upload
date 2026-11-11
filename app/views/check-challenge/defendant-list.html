@@ -1,0 +1,242 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+My hearing list – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+{% endblock %}
+
+{% block content %}
+
+<style>
+  .govuk-width-container { max-width: max(960px, 82vw); }
+  .govuk-main-wrapper { padding-top: 0 !important; }
+  .govuk-phase-banner { padding-top: 10px; padding-bottom: 10px; margin-bottom: 0; }
+  html, body, * { font-family: Arial, Helvetica, sans-serif !important; }
+
+  .muted { color: #505a5f; }
+  .page-title { margin: 35px 0 55px; }
+
+  /* Filter bar */
+  .filter-bar { border-top: 4px solid #0b0c0c; border-bottom: 4px solid #0b0c0c; }
+  .filter-toggle {
+    display: flex; align-items: center; gap: 6px;
+    margin: 0 0 0 auto;
+    background: #0b0c0c; color: #fff; border: 0; cursor: pointer;
+    font-size: 19px; padding: 7px 0 7px 4px;
+  }
+  .filter-toggle svg { width: 18px; height: 18px; fill: none; stroke: #fff; stroke-width: 2.5; }
+  .filter-toggle.is-open svg { transform: rotate(180deg); }
+  .filter-summary { padding: 8px 0 38px; }
+  .filter-summary p { margin: 0; }
+  .filter-form { padding: 0 0 25px; }
+  .filter-form h2 { margin: -30px 0 15px; }
+  .filter-row { display: flex; flex-wrap: wrap; gap: 20px 30px; align-items: flex-end; margin-bottom: 25px; }
+  .filter-form .govuk-form-group { margin-bottom: 0; }
+  .filter-form .govuk-label--s { margin-bottom: 8px; }
+  .filter-court { width: 450px; max-width: 100%; }
+  .filter-room { width: 330px; max-width: 100%; }
+  .date-inline, .time-inline { display: flex; align-items: flex-end; gap: 12px; }
+  .date-inline label, .time-inline label { display: block; margin-bottom: 4px; }
+  .time-inline .time-sep { padding-bottom: 8px; }
+  .filter-form .govuk-button { margin-bottom: 0; }
+  .cal-icon { width: 30px; height: 30px; margin-bottom: 4px; }
+
+  /* Case list */
+  .hl-list-wrap { width: 345px; max-width: 100%; margin-top: 20px; }
+  .hl-list { list-style: none; margin: 0; padding: 0; border-right: 1px solid #b1b4b6; }
+  .hl-item {
+    display: block; position: relative;
+    padding: 20px 40px 18px 20px;
+    color: #0b0c0c; text-decoration: none;
+  }
+  .hl-item:hover { background: #f3f2f1; }
+  .hl-item span { display: block; }
+  .hl-count { font-size: 19px; line-height: 1.2; }
+  .hl-type { color: #505a5f; font-size: 19px; margin-bottom: 8px; }
+  .hl-name { font-size: 19px; margin-bottom: 8px; }
+  .hl-urn { font-size: 19px; }
+  .hl-urn .muted { margin-right: 6px; display: inline; }
+  .hl-urn span { display: inline; }
+  .hl-item::after {
+    content: ""; position: absolute; right: 16px; top: 50%;
+    width: 7px; height: 7px; margin-top: -4px;
+    border-right: 2px solid #505a5f; border-top: 2px solid #505a5f;
+    transform: rotate(45deg);
+  }
+</style>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <div class="govuk-phase-banner">
+      <p class="govuk-phase-banner__content">
+        <strong class="govuk-tag govuk-phase-banner__content__tag">beta</strong>
+        <span class="govuk-phase-banner__text">This is a new service</span>
+      </p>
+    </div>
+
+    <h1 class="govuk-heading-l page-title">My hearing list</h1>
+
+    <div class="filter-bar">
+      <button type="button" class="filter-toggle" id="filter-toggle" aria-expanded="false" aria-controls="filter-form">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <line x1="12" y1="3" x2="12" y2="21"/><polyline points="5,14 12,21 19,14"/>
+        </svg>
+        <span id="filter-toggle-label">Show filters</span>
+      </button>
+
+      <div class="filter-summary" id="filter-summary">
+        <p class="govuk-body">
+          Showing hearings at Lavender Hill Magistrates' Court, Courtroom 01 on 9 November 2026.
+          <a href="#" class="govuk-link" id="change-filter">Change filter</a>
+        </p>
+      </div>
+
+      <form class="filter-form" id="filter-form" hidden onsubmit="return false;">
+        <h2 class="govuk-heading-m">Filter by</h2>
+
+        <div class="filter-row">
+          <div class="govuk-form-group filter-court">
+            <label class="govuk-label govuk-label--s" for="court">Court</label>
+            <input class="govuk-input" id="court" name="court" type="text">
+          </div>
+
+          <div class="govuk-form-group filter-room">
+            <label class="govuk-label govuk-label--s" for="courtroom">Courtroom</label>
+            <select class="govuk-select govuk-!-width-full" id="courtroom" name="courtroom">
+              <option value="">Select a court room</option>
+              <option>Courtroom 01</option>
+              <option>Courtroom 02</option>
+              <option>Courtroom 03</option>
+            </select>
+          </div>
+
+          <div class="govuk-form-group">
+            <span class="govuk-label govuk-label--s">Date</span>
+            <div class="date-inline">
+              <div><label class="govuk-label" for="date-day">Day</label>
+                <input class="govuk-input govuk-input--width-2" id="date-day" type="text" value="09" inputmode="numeric"></div>
+              <div><label class="govuk-label" for="date-month">Month</label>
+                <input class="govuk-input govuk-input--width-2" id="date-month" type="text" value="11" inputmode="numeric"></div>
+              <div><label class="govuk-label" for="date-year">Year</label>
+                <input class="govuk-input govuk-input--width-4" id="date-year" type="text" value="2026" inputmode="numeric"></div>
+              <svg class="cal-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <rect x="2" y="4" width="20" height="18" rx="2" fill="#0b0c0c"/>
+                <rect x="2" y="8" width="20" height="14" fill="#fff" stroke="#0b0c0c" stroke-width="2"/>
+                <rect x="6" y="1" width="3" height="6" fill="#0b0c0c"/><rect x="15" y="1" width="3" height="6" fill="#0b0c0c"/>
+                <g fill="#0b0c0c"><rect x="6" y="11" width="3" height="3"/><rect x="10.5" y="11" width="3" height="3"/><rect x="15" y="11" width="3" height="3"/>
+                <rect x="6" y="16" width="3" height="3"/><rect x="10.5" y="16" width="3" height="3"/><rect x="15" y="16" width="3" height="3"/></g>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-row">
+          <div class="govuk-form-group">
+            <span class="govuk-label govuk-label--s">Start time (Optional)</span>
+            <div class="time-inline">
+              <div><label class="govuk-label" for="start-h">Hours</label>
+                <input class="govuk-input govuk-input--width-2" id="start-h" type="text" inputmode="numeric"></div>
+              <span class="time-sep">:</span>
+              <div><label class="govuk-label" for="start-m">Minutes</label>
+                <input class="govuk-input govuk-input--width-2" id="start-m" type="text" inputmode="numeric"></div>
+            </div>
+          </div>
+          <div class="govuk-form-group">
+            <span class="govuk-label govuk-label--s">End time (Optional)</span>
+            <div class="time-inline">
+              <div><label class="govuk-label" for="end-h">Hours</label>
+                <input class="govuk-input govuk-input--width-2" id="end-h" type="text" inputmode="numeric"></div>
+              <span class="time-sep">:</span>
+              <div><label class="govuk-label" for="end-m">Minutes</label>
+                <input class="govuk-input govuk-input--width-2" id="end-m" type="text" inputmode="numeric"></div>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="govuk-button">Apply filters</button>
+      </form>
+    </div>
+
+    <div class="hl-list-wrap">
+      <ul class="hl-list">
+        <li>
+          <a class="hl-item" data-case="annis" href="/check-challenge/defendant-interruption?case=annis">
+            <span class="hl-count">6</span>
+            <span class="hl-type">Plea and Trial Preparation</span>
+            <span class="hl-name">Annis Balistreri</span>
+            <span class="hl-urn"><span class="muted">URN</span> <span>YO108847947</span></span>
+          </a>
+        </li>
+        <li>
+          <a class="hl-item" data-case="kevin" href="/check-challenge/defendant-interruption?case=kevin">
+            <span class="hl-count">8</span>
+            <span class="hl-type">Plea</span>
+            <span class="hl-name">Kevin Schmitt</span>
+            <span class="hl-urn"><span class="muted">URN</span> <span>SJ275988596</span></span>
+          </a>
+        </li>
+        <li>
+          <a class="hl-item" data-case="leroy" href="/check-challenge/defendant-interruption?case=leroy">
+            <span class="hl-count">7</span>
+            <span class="hl-type">First hearing</span>
+            <span class="hl-name">Leroy Rempel</span>
+            <span class="hl-urn"><span class="muted">URN</span> <span>ENF90010221</span></span>
+          </a>
+        </li>
+        <li>
+          <a class="hl-item" data-case="mikki" href="/check-challenge/defendant-interruption?case=mikki">
+            <span class="hl-count">4</span>
+            <span class="hl-type">Sentence</span>
+            <span class="hl-name">Mikki Lueilwitz</span>
+            <span class="hl-urn"><span class="muted">PAR</span> <span>SJ284372388</span></span>
+          </a>
+        </li>
+        <li>
+          <a class="hl-item" data-case="mante" href="/check-challenge/defendant-interruption?case=mante">
+            <span class="hl-count">3</span>
+            <span class="hl-type">First hearing</span>
+            <span class="hl-name">Mante, Franecki and Stamm LTD</span>
+            <span class="hl-urn"><span class="muted">URN</span> <span>ENF90003547</span></span>
+          </a>
+        </li>
+        <li>
+          <a class="hl-item" data-case="demetrius" href="/check-challenge/defendant-interruption?case=demetrius">
+            <span class="hl-count">1</span>
+            <span class="hl-type">First hearing</span>
+            <span class="hl-name">Demetrius Smitham</span>
+            <span class="hl-urn"><span class="muted">URN</span> <span>ENF90009521</span></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  (function () {
+    var toggle = document.getElementById('filter-toggle');
+    var label = document.getElementById('filter-toggle-label');
+    var summary = document.getElementById('filter-summary');
+    var form = document.getElementById('filter-form');
+
+    function setOpen(open) {
+      form.hidden = !open;
+      summary.hidden = open;
+      toggle.classList.toggle('is-open', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      label.textContent = open ? 'Hide filters' : 'Show filters';
+    }
+
+    toggle.addEventListener('click', function () { setOpen(form.hidden); });
+    document.getElementById('change-filter').addEventListener('click', function (e) {
+      e.preventDefault();
+      setOpen(true);
+    });
+  })();
+</script>
+
+{% endblock %}

@@ -1,0 +1,239 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+Case outside working area – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+  .govuk-width-container { max-width: max(960px, 82vw); }
+  .govuk-main-wrapper { padding-top: 0 !important; }
+  .govuk-phase-banner { padding-top: 10px; padding-bottom: 10px; margin-bottom: 0; }
+  html, body, * { font-family: Arial, Helvetica, sans-serif !important; }
+
+  /* Make sure the hidden attribute wins over GOV.UK display rules */
+  [hidden] { display: none !important; }
+
+  .details-panel {
+    background: #f8f8f8;
+    padding: 12px 15px 30px;
+    margin-bottom: 40px;
+  }
+  .details-panel h1 { margin-bottom: 25px; }
+  .details-panel__row { display: flex; }
+  .details-panel__col { width: 33%; }
+  .details-panel__col p { margin-bottom: 20px; }
+  .details-panel__col p:last-child { margin-bottom: 0; min-height: 1.3em; }
+
+  .reason-textarea { width: 100%; }
+  .reason-actions { margin-top: 30px; }
+  .reason-actions .govuk-button { margin-bottom: 25px; display: inline-block; }
+</style>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <div class="govuk-phase-banner">
+      <p class="govuk-phase-banner__content">
+        <strong class="govuk-tag govuk-phase-banner__content__tag">beta</strong>
+        <span class="govuk-phase-banner__text">This is a new service</span>
+      </p>
+    </div>
+
+    <div class="details-panel">
+      <h1 class="govuk-heading-l">Case Details</h1>
+      <div class="details-panel__row">
+        <div class="details-panel__col">
+          <p class="govuk-body"><strong>Defendants</strong></p>
+          <p class="govuk-body" id="defendant-name"></p>
+        </div>
+        <div class="details-panel__col">
+          <p class="govuk-body"><strong>DOB</strong></p>
+          <p class="govuk-body" id="defendant-dob"></p>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="govuk-heading-m">Case outside working area</h2>
+
+    <p class="govuk-body">
+      This case is located outside of your working area. You must only access case material where you
+      have a business need to do so. Please enter the reason for accessing this case before proceeding.
+      This reason will be recorded for audit purposes.
+    </p>
+
+    <div class="govuk-form-group" id="checkbox-group">
+      <p id="manager-approval-error" class="govuk-error-message" hidden>
+        <span class="govuk-visually-hidden">Error:</span> Confirm that your manager has approved access to this case
+      </p>
+      <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+        <div class="govuk-checkboxes__item">
+          <input class="govuk-checkboxes__input" id="manager-approval" name="managerApproval" type="checkbox" value="confirmed" aria-describedby="manager-approval-error">
+          <label class="govuk-label govuk-checkboxes__label" for="manager-approval">
+            I confirm that my manager has approved access to this case. I understand that my name and reason for access will be sent to the court manager who will take action against any unauthorised access.
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="govuk-form-group" id="select-group">
+      <label class="govuk-label govuk-label--s" for="access-reason">
+        Reason for accessing this case
+      </label>
+      <p id="access-reason-error" class="govuk-error-message" hidden>
+        <span class="govuk-visually-hidden">Error:</span> Select a reason for accessing this case
+      </p>
+      <select class="govuk-select" id="access-reason" name="accessReason" aria-describedby="access-reason-error">
+        <option value="">Select a reason</option>
+        <option value="responsible">I am responsible for this case</option>
+        <option value="listing">I am checking listing or hearing details</option>
+        <option value="query">I have a query about this case</option>
+        <option value="preparing">I am preparing for this case</option>
+        <option value="bail">I need to update bail, remand, custody or warrant activity</option>
+        <option value="progress">I need to progress this case</option>
+        <option value="results">I am checking results or outcome of this case</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+
+    <div class="govuk-form-group" id="other-reason-group" hidden>
+      <label class="govuk-label" for="other-reason">
+        Enter your reason for accessing this case
+      </label>
+      <p id="other-reason-error" class="govuk-error-message" hidden>
+        <span class="govuk-visually-hidden">Error:</span> Provide a reason for accessing this case
+      </p>
+      <textarea class="govuk-textarea reason-textarea" id="other-reason" name="otherReason"
+                rows="5" maxlength="250" aria-describedby="other-reason-error other-reason-info"></textarea>
+      <div id="other-reason-info" class="govuk-hint" aria-live="polite">
+        You have 250 characters remaining
+      </div>
+    </div>
+
+    <div class="reason-actions">
+      <button type="button" id="proceed-button" class="govuk-button">
+        Proceed to case
+      </button>
+      <br>
+      <a href="/defendant-list" class="govuk-link">Cancel</a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  (function () {
+    var cases = {
+      annis:     { name: 'Annis Balistreri', id: 'YO108847947', dob: '3 November 1962' },
+      kevin:     { name: 'Kevin Schmitt', id: 'SJ275988596', dob: '3 November 1962' },
+      leroy:     { name: 'Leroy Rempel', id: 'ENF90010221', dob: '3 November 1962' },
+      mikki:     { name: 'Mikki Lueilwitz', id: 'SJ284372388', dob: '3 November 1962' },
+      mante:     { name: 'Mante, Franecki and Stamm LTD', id: 'ENF90003547', dob: '3 November 1962' },
+      demetrius: { name: 'Demetrius Smitham', id: 'ENF90009521', dob: '3 November 1962' }
+    };
+    var key = new URLSearchParams(window.location.search).get('case');
+    if (!cases[key]) { key = 'annis'; }
+    var current = cases[key];
+
+    document.getElementById('defendant-name').textContent = current.name;
+    document.getElementById('defendant-dob').textContent = current.dob;
+    var destination = '/check-challenge/defendant-case?case=' + key;
+
+    // Elements
+    var button = document.getElementById('proceed-button');
+    var checkbox = document.getElementById('manager-approval');
+    var checkboxGroup = document.getElementById('checkbox-group');
+    var checkboxError = document.getElementById('manager-approval-error');
+    var select = document.getElementById('access-reason');
+    var selectGroup = document.getElementById('select-group');
+    var selectError = document.getElementById('access-reason-error');
+    var otherGroup = document.getElementById('other-reason-group');
+    var box = document.getElementById('other-reason');
+    var otherError = document.getElementById('other-reason-error');
+    var info = document.getElementById('other-reason-info');
+    var max = 250;
+
+    // Show or clear the GOV.UK error state on a field
+    function setError(group, errorEl, field, fieldErrorClass, show) {
+      group.classList.toggle('govuk-form-group--error', show);
+      errorEl.hidden = !show;
+      if (field && fieldErrorClass) { field.classList.toggle(fieldErrorClass, show); }
+    }
+
+    function checkCheckbox() {
+      var ok = checkbox.checked;
+      setError(checkboxGroup, checkboxError, null, null, !ok);
+      return ok;
+    }
+
+    function checkSelect() {
+      var ok = select.value !== '';
+      setError(selectGroup, selectError, select, 'govuk-select--error', !ok);
+      return ok;
+    }
+
+    function checkOther() {
+      // Only needed when "Other" is selected
+      if (select.value !== 'other') {
+        setError(otherGroup, otherError, box, 'govuk-textarea--error', false);
+        return true;
+      }
+      var ok = box.value.trim().length > 0;
+      setError(otherGroup, otherError, box, 'govuk-textarea--error', !ok);
+      return ok;
+    }
+
+    // Show free text box only when "Other" is selected
+    function toggleOther() {
+      otherGroup.hidden = select.value !== 'other';
+    }
+
+    // Character counter for the "Other" text box
+    function updateCounter() {
+      var left = max - box.value.length;
+      info.textContent = 'You have ' + left + ' character' + (left === 1 ? '' : 's') + ' remaining';
+    }
+
+    // Clear an error as soon as the user fixes that field
+    checkbox.addEventListener('change', function () {
+      if (checkbox.checked) { checkCheckbox(); }
+    });
+    select.addEventListener('change', function () {
+      toggleOther();
+      if (select.value !== '') { checkSelect(); }
+      if (select.value !== 'other') { checkOther(); }
+    });
+    box.addEventListener('input', function () {
+      updateCounter();
+      if (box.value.trim().length > 0) { checkOther(); }
+    });
+
+    // Validate on click, only continue if everything is complete
+    button.addEventListener('click', function () {
+      var checkboxOk = checkCheckbox();
+      var selectOk = checkSelect();
+      var otherOk = checkOther();
+
+      if (checkboxOk && selectOk && otherOk) {
+        window.location.href = destination;
+        return;
+      }
+
+      // Move focus to the first field with an error
+      if (!checkboxOk) { checkbox.focus(); }
+      else if (!selectOk) { select.focus(); }
+      else if (!otherOk) { box.focus(); }
+    });
+
+    // Initial state
+    toggleOther();
+    updateCounter();
+  })();
+</script>
+
+{% endblock %}
