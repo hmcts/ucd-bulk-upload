@@ -1,0 +1,227 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+My hearing list – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+{% endblock %}
+
+{% block content %}
+
+<style>
+  .govuk-width-container { max-width: max(960px, 82vw); }
+  .govuk-main-wrapper { padding-top: 0 !important; }
+  .govuk-phase-banner { padding-top: 10px; padding-bottom: 10px; margin-bottom: 0; }
+  html, body, * { font-family: Arial, Helvetica, sans-serif !important; }
+
+  .page-title { margin: 35px 0 55px; }
+
+  /* Filter bar */
+  .filter-bar { border-top: 4px solid #0b0c0c; border-bottom: 4px solid #0b0c0c; margin-bottom: 60px; }
+  .filter-toggle {
+    display: flex; align-items: center; gap: 6px;
+    margin: 0 0 0 auto;
+    background: #0b0c0c; color: #fff; border: 0; cursor: pointer;
+    font-size: 19px; padding: 7px 0 7px 4px;
+  }
+  .filter-toggle svg { width: 18px; height: 18px; fill: none; stroke: #fff; stroke-width: 2.5; }
+  .filter-toggle.is-open svg { transform: rotate(180deg); }
+  .filter-form { padding: 0 0 25px; }
+  .filter-form h2 { margin: -30px 0 15px; }
+  .filter-row { display: flex; flex-wrap: wrap; gap: 20px 30px; align-items: flex-end; margin-bottom: 25px; }
+  .filter-form .govuk-form-group { margin-bottom: 0; }
+  .filter-form .govuk-label--s { margin-bottom: 8px; }
+  .filter-court { width: 450px; max-width: 100%; position: relative; }
+  .filter-room { width: 330px; max-width: 100%; }
+  .date-inline, .time-inline { display: flex; align-items: flex-end; gap: 12px; }
+  .date-inline label, .time-inline label { display: block; margin-bottom: 4px; }
+  .time-inline .time-sep { padding-bottom: 8px; }
+  .filter-form .govuk-button { margin-bottom: 0; }
+  .cal-icon { width: 30px; height: 30px; margin-bottom: 4px; }
+
+  /* Court autocomplete */
+  .ac-menu {
+    position: absolute; left: 0; right: 0; top: 100%;
+    margin: 0; padding: 0; list-style: none;
+    background: #fff; border: 2px solid #0b0c0c; border-top: 0;
+    z-index: 20;
+  }
+  .ac-menu[hidden] { display: none; }
+  .ac-option {
+    padding: 8px 10px; font-size: 19px; line-height: 1.25;
+    color: #0b0c0c; cursor: pointer;
+  }
+  .ac-option:hover, .ac-option.is-active { background: #1d70b8; color: #fff; }
+</style>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <div class="govuk-phase-banner">
+      <p class="govuk-phase-banner__content">
+        <strong class="govuk-tag govuk-phase-banner__content__tag">beta</strong>
+        <span class="govuk-phase-banner__text">This is a new service</span>
+      </p>
+    </div>
+
+    <h1 class="govuk-heading-l page-title">My hearing list</h1>
+
+    <div class="filter-bar">
+      <button type="button" class="filter-toggle is-open" id="filter-toggle" aria-expanded="true" aria-controls="filter-form">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <line x1="12" y1="3" x2="12" y2="21"/><polyline points="5,14 12,21 19,14"/>
+        </svg>
+        <span id="filter-toggle-label">Hide filters</span>
+      </button>
+
+      <form class="filter-form" id="filter-form" data-next="/check-challenge/defendant-list" onsubmit="return false;" autocomplete="off">
+        <h2 class="govuk-heading-m">Filter by</h2>
+
+        <div class="filter-row">
+          <div class="govuk-form-group filter-court">
+            <label class="govuk-label govuk-label--s" for="court">Court</label>
+            <input class="govuk-input" id="court" name="court" type="text"
+                   role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="court-menu"
+                   data-suggestion="Lavender Hill Magistrates&#39; Court">
+            <ul class="ac-menu" id="court-menu" role="listbox" hidden></ul>
+          </div>
+
+          <div class="govuk-form-group filter-room">
+            <label class="govuk-label govuk-label--s" for="courtroom">Courtroom</label>
+            <select class="govuk-select govuk-!-width-full" id="courtroom" name="courtroom">
+              <option value="">Select a court room</option>
+              <option>Courtroom 01</option>
+              <option>Courtroom 02</option>
+              <option>Courtroom 03</option>
+            </select>
+          </div>
+
+          <div class="govuk-form-group">
+            <span class="govuk-label govuk-label--s">Date</span>
+            <div class="date-inline">
+              <div><label class="govuk-label" for="date-day">Day</label>
+                <input class="govuk-input govuk-input--width-2" id="date-day" type="text" value="09" inputmode="numeric"></div>
+              <div><label class="govuk-label" for="date-month">Month</label>
+                <input class="govuk-input govuk-input--width-2" id="date-month" type="text" value="11" inputmode="numeric"></div>
+              <div><label class="govuk-label" for="date-year">Year</label>
+                <input class="govuk-input govuk-input--width-4" id="date-year" type="text" value="2026" inputmode="numeric"></div>
+              <svg class="cal-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <rect x="2" y="4" width="20" height="18" rx="2" fill="#0b0c0c"/>
+                <rect x="2" y="8" width="20" height="14" fill="#fff" stroke="#0b0c0c" stroke-width="2"/>
+                <rect x="6" y="1" width="3" height="6" fill="#0b0c0c"/><rect x="15" y="1" width="3" height="6" fill="#0b0c0c"/>
+                <g fill="#0b0c0c"><rect x="6" y="11" width="3" height="3"/><rect x="10.5" y="11" width="3" height="3"/><rect x="15" y="11" width="3" height="3"/>
+                <rect x="6" y="16" width="3" height="3"/><rect x="10.5" y="16" width="3" height="3"/><rect x="15" y="16" width="3" height="3"/></g>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-row">
+          <div class="govuk-form-group">
+            <span class="govuk-label govuk-label--s">Start time (Optional)</span>
+            <div class="time-inline">
+              <div><label class="govuk-label" for="start-h">Hours</label>
+                <input class="govuk-input govuk-input--width-2" id="start-h" type="text" inputmode="numeric"></div>
+              <span class="time-sep">:</span>
+              <div><label class="govuk-label" for="start-m">Minutes</label>
+                <input class="govuk-input govuk-input--width-2" id="start-m" type="text" inputmode="numeric"></div>
+            </div>
+          </div>
+          <div class="govuk-form-group">
+            <span class="govuk-label govuk-label--s">End time (Optional)</span>
+            <div class="time-inline">
+              <div><label class="govuk-label" for="end-h">Hours</label>
+                <input class="govuk-input govuk-input--width-2" id="end-h" type="text" inputmode="numeric"></div>
+              <span class="time-sep">:</span>
+              <div><label class="govuk-label" for="end-m">Minutes</label>
+                <input class="govuk-input govuk-input--width-2" id="end-m" type="text" inputmode="numeric"></div>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="govuk-button" id="apply-filters">Apply filters</button>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  (function () {
+    var toggle = document.getElementById('filter-toggle');
+    var label = document.getElementById('filter-toggle-label');
+    var form = document.getElementById('filter-form');
+
+    toggle.addEventListener('click', function () {
+      var open = form.hidden;
+      form.hidden = !open;
+      toggle.classList.toggle('is-open', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      label.textContent = open ? 'Hide filters' : 'Show filters';
+    });
+
+    /* Court autocomplete: whatever is typed, offer the court used on the next page */
+    var input = document.getElementById('court');
+    var menu = document.getElementById('court-menu');
+    var suggestion = input.getAttribute('data-suggestion');
+    var option = null;
+
+    function buildMenu() {
+      menu.innerHTML = '';
+      option = document.createElement('li');
+      option.className = 'ac-option';
+      option.id = 'court-option-0';
+      option.setAttribute('role', 'option');
+      option.textContent = suggestion;
+      option.addEventListener('mousedown', function (e) { e.preventDefault(); choose(); });
+      option.addEventListener('mouseenter', function () { option.classList.add('is-active'); });
+      option.addEventListener('mouseleave', function () { option.classList.remove('is-active'); });
+      menu.appendChild(option);
+    }
+
+    function openMenu() {
+      if (input.value === suggestion) { closeMenu(); return; }
+      if (!option) buildMenu();
+      menu.hidden = false;
+      input.setAttribute('aria-expanded', 'true');
+    }
+    function closeMenu() {
+      menu.hidden = true;
+      input.setAttribute('aria-expanded', 'false');
+      input.removeAttribute('aria-activedescendant');
+      if (option) option.classList.remove('is-active');
+    }
+    function choose() {
+      input.value = suggestion;
+      closeMenu();
+      input.focus();
+    }
+
+    input.addEventListener('focus', openMenu);
+    input.addEventListener('click', openMenu);
+    input.addEventListener('input', openMenu);
+    input.addEventListener('blur', function () { setTimeout(closeMenu, 100); });
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault(); openMenu();
+        option.classList.add('is-active');
+        input.setAttribute('aria-activedescendant', option.id);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        option && option.classList.remove('is-active');
+      } else if (e.key === 'Enter') {
+        if (!menu.hidden && option && option.classList.contains('is-active')) { e.preventDefault(); choose(); }
+      } else if (e.key === 'Escape') {
+        closeMenu();
+      }
+    });
+
+    /* Apply filters -> existing results page */
+    document.getElementById('apply-filters').addEventListener('click', function () {
+      window.location.href = form.getAttribute('data-next');
+    });
+  })();
+</script>
+
+{% endblock %}
