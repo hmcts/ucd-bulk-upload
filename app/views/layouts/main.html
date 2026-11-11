@@ -2,22 +2,51 @@
 {% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
 
 {% block header %}
-{{ govukHeader() }}
-{{ govukServiceNavigation({ serviceName: serviceName }) }}
-{% endblock %}
+<style>
+  .cp-header-wrap { position: relative; }
+  .cp-search-overlay {
+    position: absolute; top: 0; left: 0; right: 0; height: 100%;
+    pointer-events: none;
+  }
+  .cp-search-overlay .govuk-width-container {
+    height: 100%; display: flex; align-items: center; justify-content: flex-end;
+  }
+  .cp-search { display: flex; align-items: center; gap: 10px; margin: 0; pointer-events: auto; }
+  .cp-search input {
+    width: 300px; max-width: 40vw; height: 40px; box-sizing: border-box;
+    border: 0; border-radius: 0; padding: 0 8px; font-size: 19px;
+    background: #fff; color: #0b0c0c;
+  }
+  .cp-search input::placeholder { color: #0b0c0c; opacity: 1; }
+  .cp-search button { background: none; border: 0; padding: 4px; cursor: pointer; line-height: 0; }
+  .cp-search button svg { width: 26px; height: 26px; fill: none; stroke: #fff; stroke-width: 3; }
+  .cp-search button:focus { outline: 3px solid #fd0; outline-offset: 0; }
+</style>
 
-
-{% block beforeContent %}
-<div class="govuk-phase-banner">
-    <p class="govuk-phase-banner__content">
-        <strong class="govuk-tag govuk-phase-banner__content__tag">
-            Alpha
-        </strong>
-        <span class="govuk-phase-banner__text">
-            This is a new service. Help us improve it and <a class="govuk-link" href="#">give your feedback by
-                email</a>.
-        </span>
-    </p>
+<div class="cp-header-wrap">
+  {{ govukHeader({ productName: "Common Platform" }) }}
+  <div class="cp-search-overlay">
+    <div class="govuk-width-container">
+      <form class="cp-search" action="/search" method="get" role="search" onsubmit="return false;">
+        <label class="govuk-visually-hidden" for="cp-search-input">Search by reference</label>
+        <input id="cp-search-input" type="text" name="q" placeholder="Search by reference">
+        <button type="submit" aria-label="Search">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="10" cy="10" r="6.5"/><line x1="15" y1="15" x2="21" y2="21"/>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </div>
 </div>
 
+{{ govukServiceNavigation({
+  navigation: [
+    { href: "#", text: "Detailed Search" },
+    { href: "#", text: "Home" },
+    { href: "#", text: "Your Services" },
+    { href: "#", text: "Your Account" },
+    { href: "#", text: "Sign out" }
+  ]
+}) }}
 {% endblock %}
