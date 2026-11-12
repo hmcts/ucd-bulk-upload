@@ -27,15 +27,19 @@
   {{ govukHeader({ productName: "Common Platform" }) }}
   <div class="cp-search-overlay">
     <div class="govuk-width-container">
-      <form class="cp-search" action="/search" method="get" role="search" onsubmit="return false;">
-        <label class="govuk-visually-hidden" for="cp-search-input">Search by reference</label>
-        <input id="cp-search-input" type="text" name="q" placeholder="Search by reference">
-        <button type="submit" aria-label="Search">
-          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <circle cx="10" cy="10" r="6.5"/><line x1="15" y1="15" x2="21" y2="21"/>
-          </svg>
-        </button>
-      </form>
+    <form class="cp-search"
+      action="{{ searchAction or '/search' }}"
+      method="post"
+      role="search"
+      {% if not searchAction %}onsubmit="return false;"{% endif %}>
+  <label class="govuk-visually-hidden" for="cp-search-input">Search by reference</label>
+  <input id="cp-search-input" type="text" name="reference" placeholder="Search by reference">
+  <button type="submit" aria-label="Search">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <circle cx="10" cy="10" r="6.5"/><line x1="15" y1="15" x2="21" y2="21"/>
+    </svg>
+  </button>
+</form>
     </div>
   </div>
 </div>

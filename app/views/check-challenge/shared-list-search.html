@@ -40,7 +40,6 @@ My hearing list – {{ serviceName }} – GOV.UK Prototype Kit
   .filter-form .govuk-button { margin-bottom: 0; }
   .cal-icon { width: 30px; height: 30px; margin-bottom: 4px; }
 
-  /* Court autocomplete */
   .ac-menu {
     position: absolute; left: 0; right: 0; top: 100%;
     margin: 0; padding: 0; list-style: none;
@@ -161,7 +160,6 @@ My hearing list – {{ serviceName }} – GOV.UK Prototype Kit
       label.textContent = open ? 'Hide filters' : 'Show filters';
     });
 
-    /* Court autocomplete: whatever is typed, offer the court used on the next page */
     var input = document.getElementById('court');
     var menu = document.getElementById('court-menu');
     var suggestion = input.getAttribute('data-suggestion');
@@ -217,7 +215,6 @@ My hearing list – {{ serviceName }} – GOV.UK Prototype Kit
       }
     });
 
-    /* Apply filters -> existing results page */
     document.getElementById('apply-filters').addEventListener('click', function () {
       window.location.href = form.getAttribute('data-next');
     });

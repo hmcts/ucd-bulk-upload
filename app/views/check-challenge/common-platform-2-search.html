@@ -1,0 +1,258 @@
+{% extends "layouts/main.html" %}
+{% set searchAction = "/check-challenge/common-platform-2-search" %}
+
+{% block pageTitle %}
+Search – Common Platform – {{ serviceName }}
+{% endblock %}
+
+{% block containerStart %}
+<div class="govuk-breadcrumbs">
+  <ol class="govuk-breadcrumbs__list">
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/check-challenge/common-platform-2">Home</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/check-challenge/common-platform-2-search">Search</a>
+    </li>
+  </ol>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<style>
+  html, body, * { font-family: Arial, Helvetica, sans-serif !important; }
+</style>
+
+<h1 class="govuk-heading-xl">Search</h1>
+
+<div class="govuk-grid-row">
+
+  <!-- Filters -->
+  <div class="govuk-grid-column-one-third">
+    <form method="post" action="/check-challenge/common-platform-2-search" novalidate>
+
+      <div class="govuk-button-group">
+        <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button"
+                style="background-color:#00703c; color:#fff; box-shadow: 0 2px 0 #002d18;">Apply filters</button>
+        <a class="govuk-link" href="/check-challenge/common-platform-2-search">Clear filters</a>
+      </div>
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Case status</legend>
+          <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="status-active" name="caseStatus" type="checkbox" value="active">
+              <label class="govuk-label govuk-checkboxes__label" for="status-active">Active</label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="status-inactive" name="caseStatus" type="checkbox" value="inactive">
+              <label class="govuk-label govuk-checkboxes__label" for="status-inactive">Inactive</label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="govuk-form-group">
+        <label class="govuk-label govuk-label--s" for="reference">Reference</label>
+        <input class="govuk-input" id="reference" name="reference" type="text" value="FB387243954">
+      </div>
+
+      <div class="govuk-form-group">
+        <label class="govuk-label govuk-label--s" for="firstName">First name</label>
+        <input class="govuk-input" id="firstName" name="firstName" type="text">
+      </div>
+
+      <div class="govuk-form-group">
+        <label class="govuk-label govuk-label--s" for="lastName">Last name or organisation</label>
+        <input class="govuk-input" id="lastName" name="lastName" type="text">
+      </div>
+
+      <details class="govuk-details">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">Select type</span>
+        </summary>
+        <div class="govuk-details__text">
+          <div class="govuk-radios govuk-radios--small" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="type-person" name="partyType" type="radio" value="person">
+              <label class="govuk-label govuk-radios__label" for="type-person">Person</label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="type-org" name="partyType" type="radio" value="organisation">
+              <label class="govuk-label govuk-radios__label" for="type-org">Organisation</label>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" role="group">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Date of birth</legend>
+          <div class="govuk-date-input">
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="dob-day">Day</label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="dob-day" name="dobDay" type="text" inputmode="numeric">
+              </div>
+            </div>
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="dob-month">Month</label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="dob-month" name="dobMonth" type="text" inputmode="numeric">
+              </div>
+            </div>
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="dob-year">Year</label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="dob-year" name="dobYear" type="text" inputmode="numeric">
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Address</legend>
+          <div class="govuk-form-group">
+            <label class="govuk-label govuk-label--s" for="address-line-1" style="font-weight: normal;">First line of address</label>
+            <input class="govuk-input" id="address-line-1" name="addressLine1" type="text">
+          </div>
+          <div class="govuk-form-group">
+            <label class="govuk-label govuk-label--s" for="postcode" style="font-weight: normal;">Postcode</label>
+            <input class="govuk-input govuk-input--width-10" id="postcode" name="postcode" type="text">
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="govuk-form-group">
+        <label class="govuk-label govuk-label--s" for="prosecutor">Prosecutor</label>
+        <input class="govuk-input" id="prosecutor" name="prosecutor" type="text">
+      </div>
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" role="group">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Hearing date</legend>
+          <div class="govuk-date-input">
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="hd-from-day">Day</label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="hd-from-day" name="hdFromDay" type="text" inputmode="numeric">
+              </div>
+            </div>
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="hd-from-month">Month</label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="hd-from-month" name="hdFromMonth" type="text" inputmode="numeric">
+              </div>
+            </div>
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="hd-from-year">Year</label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="hd-from-year" name="hdFromYear" type="text" inputmode="numeric">
+              </div>
+            </div>
+          </div>
+          <p class="govuk-body-s" style="border-left: 5px solid #b1b4b6; padding-left: 10px;">Selected day:</p>
+
+          <p class="govuk-body-s govuk-!-margin-bottom-2">to</p>
+
+          <div class="govuk-date-input">
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="hd-to-day">Day</label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="hd-to-day" name="hdToDay" type="text" inputmode="numeric">
+              </div>
+            </div>
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="hd-to-month">Month</label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="hd-to-month" name="hdToMonth" type="text" inputmode="numeric">
+              </div>
+            </div>
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="hd-to-year">Year</label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="hd-to-year" name="hdToYear" type="text" inputmode="numeric">
+              </div>
+            </div>
+          </div>
+          <p class="govuk-body-s" style="border-left: 5px solid #b1b4b6; padding-left: 10px;">Selected day:</p>
+        </fieldset>
+      </div>
+
+      <div class="govuk-form-group">
+        <label class="govuk-label govuk-label--s" for="hearingType">Hearing type</label>
+        <select class="govuk-select" id="hearingType" name="hearingType">
+          <option value="">All hearing types</option>
+        </select>
+      </div>
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Jurisdiction</legend>
+          <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="jur-sjp" name="jurisdiction" type="checkbox" value="sjp">
+              <label class="govuk-label govuk-checkboxes__label" for="jur-sjp">Single justice procedure</label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="jur-mags" name="jurisdiction" type="checkbox" value="magistrates">
+              <label class="govuk-label govuk-checkboxes__label" for="jur-mags">Magistrates’</label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="jur-crown" name="jurisdiction" type="checkbox" value="crown">
+              <label class="govuk-label govuk-checkboxes__label" for="jur-crown">Crown</label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="govuk-form-group">
+        <label class="govuk-label govuk-label--s" for="court">Court</label>
+        <input class="govuk-input" id="court" name="court" type="text">
+      </div>
+
+      <div class="govuk-form-group">
+        <label class="govuk-label govuk-label--s" for="applicationType">Application type</label>
+        <input class="govuk-input" id="applicationType" name="applicationType" type="text">
+      </div>
+
+      <div class="govuk-button-group">
+        <button type="submit" class="govuk-button" data-module="govuk-button"
+                style="background-color:#00703c; box-shadow: 0 2px 0 #002d18;">Apply filters</button>
+        <a class="govuk-link" href="/check-challenge/common-platform-2-search">Clear filters</a>
+      </div>
+
+    </form>
+  </div>
+
+  <!-- Results -->
+  <div class="govuk-grid-column-two-thirds">
+
+    <p class="govuk-body" style="border-left: 5px solid #b1b4b6; padding-left: 10px;">1 result</p>
+
+    <div style="border: 1px solid #b1b4b6;">
+      <div style="background-color: #f3f2f1; padding: 8px 15px; display: flex; justify-content: space-between; border-bottom: 1px solid #b1b4b6;">
+        <details class="govuk-details govuk-!-margin-bottom-0">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              <a class="govuk-link" href="#">FB387243954</a>
+            </span>
+          </summary>
+        </details>
+        <a class="govuk-link" href="/check-challenge/common-platform-2-case-access">View case</a>
+      </div>
+      <div style="padding: 15px; display: flex; justify-content: space-between;">
+        <span class="govuk-body govuk-!-margin-bottom-0">Bradley HODKIEWICZ</span>
+        <span class="govuk-body govuk-!-margin-bottom-0">Date of birth: 3 November 1976</span>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+{% endblock %}

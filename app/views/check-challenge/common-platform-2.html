@@ -1,0 +1,95 @@
+{% extends "layouts/main.html" %}
+{% set searchAction = "/check-challenge/common-platform-2-search" %}
+
+{% block pageTitle %}
+Home – Common Platform – {{ serviceName }}
+{% endblock %}
+
+{% block containerStart %}
+{% endblock %}
+
+{% block content %}
+
+<style>
+  html, body, * { font-family: Arial, Helvetica, sans-serif !important; }
+</style>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <div style="background-color: #1d70b8; padding: 20px 30px; margin-bottom: 30px;">
+      <h1 class="govuk-heading-xl" style="color: #ffffff; margin-bottom: 0;">Home</h1>
+    </div>
+
+    <div class="govuk-grid-row">
+
+      <!-- Column 1: Court proceedings + Manage your work -->
+      <div class="govuk-grid-column-one-third">
+
+        <div class="govuk-summary-card">
+          <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">Court proceedings</h2>
+          </div>
+          <div class="govuk-summary-card__content">
+            <ul class="govuk-list">
+              <li><a class="govuk-link" href="#">Check-in to hearing</a></li>
+              <li><a class="govuk-link" href="#">Create case or application</a></li>
+              <li><a class="govuk-link" href="#">Download hearing lists</a></li>
+              <li><a class="govuk-link" href="#">Assign case by URN</a></li>
+              <li><a class="govuk-link" href="#">Assign case by hearing date</a></li>
+              <li><a class="govuk-link" href="#">Find your case by URN</a></li>
+              <li><a class="govuk-link" href="/bulk-uploads/complaints-home">Manage your complaints files</a></li>
+              <li><a class="govuk-link" href="/bulk-result/search-list">Extract or result complaints files</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="govuk-summary-card">
+          <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">Manage your work</h2>
+          </div>
+          <div class="govuk-summary-card__content">
+            <ul class="govuk-list">
+              <li><a class="govuk-link" href="#">Case activities</a></li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Column 2: Exception lists -->
+      <div class="govuk-grid-column-one-third">
+        <div class="govuk-summary-card">
+          <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">Exception lists</h2>
+          </div>
+          <div class="govuk-summary-card__content">
+            <ul class="govuk-list">
+              <li><a class="govuk-link" href="#">Reporting Dashboard</a></li>
+              <li><a class="govuk-link" href="#">Review new documents</a></li>
+              <li><a class="govuk-link" href="#">Match defendants</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Column 3: Court Scheduler -->
+      <div class="govuk-grid-column-one-third">
+        <div class="govuk-summary-card">
+          <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">Court Scheduler</h2>
+          </div>
+          <div class="govuk-summary-card__content">
+            <ul class="govuk-list">
+              <li><a class="govuk-link" href="#">Create sessions</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
