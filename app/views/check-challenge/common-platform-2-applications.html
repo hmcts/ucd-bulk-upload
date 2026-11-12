@@ -1,0 +1,161 @@
+{% extends "layouts/main.html" %}
+{% set searchAction = "/check-challenge/common-platform-2-search" %}
+
+{% block pageTitle %}
+Applications – Common Platform – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+{% endblock %}
+
+{% block content %}
+
+<style>
+  :root { --u: clamp(1px, 0.0567vw, 1.8px); }
+  .cp-scope .govuk-heading-l { font-size: calc(36 * var(--u)); }
+  .cp-scope .govuk-heading-m { font-size: calc(24 * var(--u)); }
+  .cp-scope .govuk-list, .cp-scope .govuk-details__summary-text, .cp-scope .govuk-label { font-size: calc(19 * var(--u)); }
+  .govuk-width-container { max-width: max(960px, 82vw); }
+  .govuk-main-wrapper { padding-top: 0 !important; }
+  .govuk-phase-banner { padding-top: 10px; padding-bottom: 10px; margin-bottom: 0; }
+  html, body, * { font-family: Arial, Helvetica, sans-serif !important; }
+  [hidden] { display: none !important; }
+
+  .muted { color: #505a5f; }
+
+  /* Case banner */
+  .case-ref-bar {
+    background: #366db3; color: #fff;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 12px; font-size: calc(17 * var(--u)); margin-top: 4px;
+  }
+  .case-ref-bar strong { margin-left: 8px; }
+  .case-ref-bar a { color: #fff; text-decoration: underline; font-size: calc(17 * var(--u)); }
+  .case-warning {
+    background: #c9442b; color: #fff;
+    padding: 8px 15px; margin-top: 15px;
+    display: flex; align-items: center; gap: 12px;
+    font-weight: 700; font-size: calc(17 * var(--u));
+  }
+  .case-warning svg { width: calc(22 * var(--u)); height: calc(22 * var(--u)); fill: #fff; flex: none; }
+
+  /* Tabs */
+  .case-tabs { display: flex; gap: 30px; border-bottom: 1px solid #b1b4b6; margin: 15px 0 30px; }
+  .case-tabs a {
+    display: block; padding: 10px 0 12px; font-size: calc(19 * var(--u)); text-decoration: none;
+    border-bottom: 4px solid transparent; margin-bottom: -1px;
+  }
+  .case-tabs a[aria-current="page"] { border-bottom-color: #366db3; }
+
+  /* Two-column layout */
+  .case-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 66%) minmax(0, 32%);
+    justify-content: space-between;
+    align-items: start;
+    padding-bottom: 50px;
+  }
+
+  .details-box { background: #f3f2f1; padding: 15px 20px 20px; margin-bottom: 35px; }
+  .details-box h1 { margin: 0 0 15px; }
+
+  .kv { display: grid; grid-template-columns: 26% minmax(0, 1fr); column-gap: 0; margin: 0 0 16px; font-size: calc(19 * var(--u)); }
+  .kv dt { color: #505a5f; }
+  .kv dd { margin: 0; }
+  .kv dd p { margin: 0 0 12px; }
+  .kv dd p:last-child { margin-bottom: 0; }
+  .details-box .kv { margin-bottom: 8px; }
+  .details-box { padding: 15px 20px 20px; }
+
+  .defendant-head { display: flex; justify-content: space-between; align-items: center; margin: 0 0 20px; }
+  .defendant-head a { font-size: calc(27 * var(--u)); font-weight: 700; }
+  .driver-btn {
+    background: #f3f2f1; border: 0; border-bottom: 2px solid #929191; padding: 6px 12px;
+    font-size: calc(19 * var(--u)); color: #0b0c0c; cursor: pointer;
+  }
+
+  .section-rule { border: 0; border-top: 1px solid #b1b4b6; margin: 22px 0; }
+
+  /* Right column */
+  .side-section { border-top: 2px solid #366db3; padding-top: 12px; margin-bottom: 30px; }
+  .side-section h2 { margin: 0 0 15px; }
+  .tl-card { border: 1px solid #b1b4b6; margin-bottom: 18px; font-size: calc(17 * var(--u)); }
+  .tl-card__head { background: #f3f2f1; padding: 10px 12px; font-size: calc(18 * var(--u)); border-bottom: 1px solid #b1b4b6; }
+  .tl-card__body { padding: 12px; }
+  .tl-card__body strong.title { display: block; font-size: calc(19 * var(--u)); margin-bottom: 14px; }
+  .tl-card__body p { margin: 0 0 12px; color: #505a5f; }
+  .tl-card__body p.dark { color: #0b0c0c; }
+  .gen-btn {
+    display: block; width: 100%; text-align: center; background: #f3f2f1; border: 0;
+    border-bottom: 2px solid #929191; padding: 8px 12px; font-size: calc(17 * var(--u)); color: #0b0c0c; cursor: pointer;
+  }
+  .side-section .govuk-list { font-size: calc(17 * var(--u)); }
+  .side-section .govuk-details__summary-text { font-size: calc(18 * var(--u)); }
+  .log-note { font-size: calc(16 * var(--u)); margin: 15px 0 0; }
+
+  @media (max-width: 1000px) {
+    .case-layout { grid-template-columns: 1fr; }
+  }
+
+  /* Applications pages */
+  .kv { grid-template-columns: 35% minmax(0, 1fr); }
+  .add-app { text-align: right; margin: 40px 0 10px; font-size: calc(19 * var(--u)); }
+  .app-table { width: 100%; border-collapse: collapse; font-size: calc(19 * var(--u)); margin-bottom: 60px; }
+  .app-table th { text-align: left; font-weight: 700; padding: 10px 0; border-bottom: 1px solid #b1b4b6; }
+  .app-table td { padding: 10px 0; border-bottom: 1px solid #b1b4b6; }
+  .app-table th:last-child, .app-table td:last-child { text-align: right; }
+  .app-title { margin: 35px 0 0; }
+  .party-name { font-size: calc(24 * var(--u)); font-weight: 700; margin: 0 0 20px; }
+  .subject { font-weight: 700; color: #0b0c0c; text-decoration: none; }
+</style>
+
+<div class="govuk-grid-row cp-scope">
+  <div class="govuk-grid-column-full">
+
+    <div class="govuk-phase-banner">
+      <p class="govuk-phase-banner__content">
+        <strong class="govuk-tag govuk-phase-banner__content__tag">beta</strong>
+        <span class="govuk-phase-banner__text">This is a new service</span>
+      </p>
+    </div>
+
+    <div class="case-ref-bar">
+      <span>FB387243954 <strong>Bradley Hodkiewicz</strong></span>
+      <a href="#">Edit case</a>
+    </div>
+
+    <nav class="case-tabs" aria-label="Case navigation">
+      <a href="/check-challenge/common-platform-2-case-details" class="govuk-link govuk-link--no-visited-state">Case at a glance</a>
+      <a href="/check-challenge/common-platform-2-case-material" class="govuk-link govuk-link--no-visited-state">Case material</a>
+      <a href="#" class="govuk-link govuk-link--no-visited-state">Correspondence</a>
+      <a href="#" class="govuk-link govuk-link--no-visited-state">Case management</a>
+      <a href="/check-challenge/common-platform-2-applications" class="govuk-link govuk-link--no-visited-state" aria-current="page">Applications</a>
+    </nav>
+
+    <h1 class="govuk-heading-l app-title">Applications</h1>
+
+    <p class="add-app"><a href="#" class="govuk-link">Add new application</a></p>
+
+    <table class="app-table">
+      <thead>
+        <tr>
+          <th style="width: 45%;">Application type</th>
+          <th style="width: 20%;">Applicant</th>
+          <th style="width: 20%;">Respondent</th>
+          <th><span class="govuk-visually-hidden">Actions</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Application for Special Measures</td>
+          <td>Bradley Hodkiewicz</td>
+          <td></td>
+          <td><a href="/check-challenge/common-platform-2-application-details" class="govuk-link">View details</a></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+{% endblock %}

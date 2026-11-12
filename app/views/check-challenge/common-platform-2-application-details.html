@@ -1,0 +1,273 @@
+{% extends "layouts/main.html" %}
+{% set searchAction = "/check-challenge/common-platform-2-search" %}
+
+{% block pageTitle %}
+Application at a glance – Common Platform – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+{% endblock %}
+
+{% block content %}
+
+<style>
+  :root { --u: clamp(1px, 0.0567vw, 1.8px); }
+  .cp-scope .govuk-heading-l { font-size: calc(36 * var(--u)); }
+  .cp-scope .govuk-heading-m { font-size: calc(24 * var(--u)); }
+  .cp-scope .govuk-list, .cp-scope .govuk-details__summary-text, .cp-scope .govuk-label { font-size: calc(19 * var(--u)); }
+  .govuk-width-container { max-width: max(960px, 82vw); }
+  .govuk-main-wrapper { padding-top: 0 !important; }
+  .govuk-phase-banner { padding-top: 10px; padding-bottom: 10px; margin-bottom: 0; }
+  html, body, * { font-family: Arial, Helvetica, sans-serif !important; }
+  [hidden] { display: none !important; }
+
+  .muted { color: #505a5f; }
+
+  /* Case banner */
+  .case-ref-bar {
+    background: #366db3; color: #fff;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 12px; font-size: calc(17 * var(--u)); margin-top: 4px;
+  }
+  .case-ref-bar strong { margin-left: 8px; }
+  .case-ref-bar a { color: #fff; text-decoration: underline; font-size: calc(17 * var(--u)); }
+  .case-warning {
+    background: #c9442b; color: #fff;
+    padding: 8px 15px; margin-top: 15px;
+    display: flex; align-items: center; gap: 12px;
+    font-weight: 700; font-size: calc(17 * var(--u));
+  }
+  .case-warning svg { width: calc(22 * var(--u)); height: calc(22 * var(--u)); fill: #fff; flex: none; }
+
+  /* Tabs */
+  .case-tabs { display: flex; gap: 30px; border-bottom: 1px solid #b1b4b6; margin: 15px 0 30px; }
+  .case-tabs a {
+    display: block; padding: 10px 0 12px; font-size: calc(19 * var(--u)); text-decoration: none;
+    border-bottom: 4px solid transparent; margin-bottom: -1px;
+  }
+  .case-tabs a[aria-current="page"] { border-bottom-color: #366db3; }
+
+  /* Two-column layout */
+  .case-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 66%) minmax(0, 32%);
+    justify-content: space-between;
+    align-items: start;
+    padding-bottom: 50px;
+  }
+
+  .details-box { background: #f3f2f1; padding: 15px 20px 20px; margin-bottom: 35px; }
+  .details-box h1 { margin: 0 0 15px; }
+
+  .kv { display: grid; grid-template-columns: 26% minmax(0, 1fr); column-gap: 0; margin: 0 0 16px; font-size: calc(19 * var(--u)); }
+  .kv dt { color: #505a5f; }
+  .kv dd { margin: 0; }
+  .kv dd p { margin: 0 0 12px; }
+  .kv dd p:last-child { margin-bottom: 0; }
+  .details-box .kv { margin-bottom: 8px; }
+  .details-box { padding: 15px 20px 20px; }
+
+  .defendant-head { display: flex; justify-content: space-between; align-items: center; margin: 0 0 20px; }
+  .defendant-head a { font-size: calc(27 * var(--u)); font-weight: 700; }
+  .driver-btn {
+    background: #f3f2f1; border: 0; border-bottom: 2px solid #929191; padding: 6px 12px;
+    font-size: calc(19 * var(--u)); color: #0b0c0c; cursor: pointer;
+  }
+
+  .section-rule { border: 0; border-top: 1px solid #b1b4b6; margin: 22px 0; }
+
+  /* Right column */
+  .side-section { border-top: 2px solid #366db3; padding-top: 12px; margin-bottom: 30px; }
+  .side-section h2 { margin: 0 0 15px; }
+  .tl-card { border: 1px solid #b1b4b6; margin-bottom: 18px; font-size: calc(17 * var(--u)); }
+  .tl-card__head { background: #f3f2f1; padding: 10px 12px; font-size: calc(18 * var(--u)); border-bottom: 1px solid #b1b4b6; }
+  .tl-card__body { padding: 12px; }
+  .tl-card__body strong.title { display: block; font-size: calc(19 * var(--u)); margin-bottom: 14px; }
+  .tl-card__body p { margin: 0 0 12px; color: #505a5f; }
+  .tl-card__body p.dark { color: #0b0c0c; }
+  .gen-btn {
+    display: block; width: 100%; text-align: center; background: #f3f2f1; border: 0;
+    border-bottom: 2px solid #929191; padding: 8px 12px; font-size: calc(17 * var(--u)); color: #0b0c0c; cursor: pointer;
+  }
+  .side-section .govuk-list { font-size: calc(17 * var(--u)); }
+  .side-section .govuk-details__summary-text { font-size: calc(18 * var(--u)); }
+  .log-note { font-size: calc(16 * var(--u)); margin: 15px 0 0; }
+
+  @media (max-width: 1000px) {
+    .case-layout { grid-template-columns: 1fr; }
+  }
+
+  /* Applications pages */
+  .kv { grid-template-columns: 35% minmax(0, 1fr); }
+  .add-app { text-align: right; margin: 40px 0 10px; font-size: calc(19 * var(--u)); }
+  .app-table { width: 100%; border-collapse: collapse; font-size: calc(19 * var(--u)); margin-bottom: 60px; }
+  .app-table th { text-align: left; font-weight: 700; padding: 10px 0; border-bottom: 1px solid #b1b4b6; }
+  .app-table td { padding: 10px 0; border-bottom: 1px solid #b1b4b6; }
+  .app-table th:last-child, .app-table td:last-child { text-align: right; }
+  .app-title { margin: 35px 0 0; }
+  .party-name { font-size: calc(24 * var(--u)); font-weight: 700; margin: 0 0 20px; }
+  .subject { font-weight: 700; color: #0b0c0c; text-decoration: none; }
+</style>
+
+<div class="govuk-grid-row cp-scope">
+  <div class="govuk-grid-column-full">
+
+    <div class="govuk-phase-banner">
+      <p class="govuk-phase-banner__content">
+        <strong class="govuk-tag govuk-phase-banner__content__tag">beta</strong>
+        <span class="govuk-phase-banner__text">This is a new service</span>
+      </p>
+    </div>
+
+    <div class="case-ref-bar">
+      <span>FB387243954 <strong>Bradley Hodkiewicz</strong></span>
+      <a href="#">Edit application</a>
+    </div>
+
+    <nav class="case-tabs" aria-label="Application navigation">
+      <a href="/check-challenge/common-platform-2-application-details" class="govuk-link govuk-link--no-visited-state" aria-current="page">Application at a glance</a>
+      <a href="#" class="govuk-link govuk-link--no-visited-state">Case material</a>
+    </nav>
+
+    <div class="case-layout">
+
+      <!-- Left column -->
+      <div>
+
+        <div class="details-box">
+          <h1 class="govuk-heading-l">Application details</h1>
+          <dl class="kv">
+            <dt>Application type</dt>
+            <dd><strong>Application for Special Measures</strong></dd>
+          </dl>
+          <dl class="kv">
+            <dt>Date received</dt>
+            <dd>10 November 2026</dd>
+          </dl>
+          <dl class="kv">
+            <dt>Particulars</dt>
+            <dd></dd>
+          </dl>
+          <dl class="kv">
+            <dt>Initial fee status</dt>
+            <dd>Not applicable</dd>
+          </dl>
+          <dl class="kv">
+            <dt>Initial fee reference</dt>
+            <dd></dd>
+          </dl>
+          <dl class="kv">
+            <dt>Plea</dt>
+            <dd>Not yet entered</dd>
+          </dl>
+          <dl class="kv">
+            <dt>Verdict</dt>
+            <dd>Not yet entered</dd>
+          </dl>
+          <dl class="kv">
+            <dt>Results</dt>
+            <dd>
+              <p>LHBW - List for hearing from box work<br>Listed for hearing from box work. Reason: Hearing required. For hearing on 11/11/2026 at 10:00 in Courtroom 01, Lavender Hill Magistrates' Court.</p>
+              <p class="muted">Result/Order made on<br>10-11-2026</p>
+              <p class="muted">Shared on<br>10-11-2026</p>
+            </dd>
+          </dl>
+        </div>
+
+        <h2 class="govuk-heading-l" style="margin-top: 50px;">Applicant</h2>
+
+        <div class="defendant-head">
+          <span class="party-name" style="margin: 0; font-size: calc(27 * var(--u));">
+            <a href="#" class="govuk-link">Bradley HODKIEWICZ</a> (Subject)
+          </span>
+          <button type="button" class="driver-btn">Driver record</button>
+        </div>
+
+        <dl class="kv">
+          <dt>Address</dt>
+          <dd>74 Station Approach, Station Approach, Woking, Surrey, NW1 5BR</dd>
+        </dl>
+        <dl class="kv">
+          <dt>Remand status</dt>
+          <dd>Not applicable</dd>
+        </dl>
+        <dl class="kv">
+          <dt>Representation</dt>
+          <dd>Unrepresented</dd>
+        </dl>
+
+        <hr class="section-rule">
+
+        <h2 class="govuk-heading-l">Third parties</h2>
+        <p class="party-name"><a href="#" class="govuk-link">City of London Police</a></p>
+        <dl class="kv">
+          <dt>Address</dt>
+          <dd>Bishopsgate police station, 182, Bishopsgate, London, EC2M 4NP</dd>
+        </dl>
+
+        <hr class="section-rule">
+
+        <h2 class="govuk-heading-l">Linked cases</h2>
+        <dl class="kv">
+          <dt>Case reference(s)</dt>
+          <dd><a href="/check-challenge/common-platform-2-case-details" class="govuk-link">FB387243954</a></dd>
+        </dl>
+
+      </div>
+
+      <!-- Right column -->
+      <div>
+
+        <div class="side-section">
+          <h2 class="govuk-heading-m">Timeline</h2>
+
+          <div class="tl-card">
+            <div class="tl-card__head">11 Nov 2026</div>
+            <div class="tl-card__body">
+              <strong class="title">Trial</strong>
+              <p>Lavender Hill Magistrates' Court, Courtroom 01, 10:00 AM<br>Estimated duration: 20 minutes</p>
+              <p class="dark">Bradley Hodkiewicz</p>
+              <p><a href="#" class="govuk-link">Manage hearing</a></p>
+            </div>
+          </div>
+
+          <div class="tl-card">
+            <div class="tl-card__head">10 Nov 2026</div>
+            <div class="tl-card__body">
+              <strong class="title">Box work</strong>
+              <p>Lavender Hill Magistrates' Court<br>Estimated duration: 10 minutes</p>
+              <p class="dark">Bradley Hodkiewicz</p>
+              <p><a href="#" class="govuk-link">Manage box work</a></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="side-section">
+          <h2 class="govuk-heading-m">Other application links</h2>
+          <ul class="govuk-list">
+            <li><a href="#" class="govuk-link">Create Court Extract</a></li>
+            <li><a href="#" class="govuk-link">Outstanding activities</a></li>
+          </ul>
+        </div>
+
+        <div class="side-section">
+          <h2 class="govuk-heading-m">Application notes</h2>
+          <details class="govuk-details">
+            <summary class="govuk-details__summary">
+              <span class="govuk-details__summary-text">Add application note</span>
+            </summary>
+            <div class="govuk-details__text">
+              <label class="govuk-label" for="application-note">Application note</label>
+              <textarea class="govuk-textarea" id="application-note" rows="4"></textarea>
+            </div>
+          </details>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
